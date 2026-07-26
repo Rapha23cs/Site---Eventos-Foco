@@ -72,7 +72,7 @@ export function PaymentCheckout({ eventId, onBack, onSuccess }: PaymentCheckoutP
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#F8FAFC] dark:bg-slate-950">
-        <Loader2 className="w-10 h-10 animate-spin text-[#303392]" />
+        <Loader2 className="w-10 h-10 animate-spin text-[#303392] dark:text-blue-400" />
       </div>
     );
   }
@@ -130,7 +130,7 @@ export function PaymentCheckout({ eventId, onBack, onSuccess }: PaymentCheckoutP
                   onClick={() => setPaymentMethod('credit_card')}
                   className={`p-4 rounded-2xl border-2 flex flex-col items-center justify-center gap-3 transition-all ${
                     paymentMethod === 'credit_card' 
-                      ? 'border-[#303392] bg-[#303392]/5 text-[#303392]' 
+                      ? 'border-[#303392] dark:border-blue-500 bg-[#303392]/5 dark:bg-blue-900/20 text-[#303392] dark:text-blue-400' 
                       : 'border-gray-100 dark:border-slate-800 bg-gray-50 dark:bg-slate-800/50 text-gray-500 dark:text-slate-400 hover:border-gray-200 dark:border-slate-700'
                   }`}
                 >
@@ -141,7 +141,7 @@ export function PaymentCheckout({ eventId, onBack, onSuccess }: PaymentCheckoutP
                   onClick={() => setPaymentMethod('pix')}
                   className={`p-4 rounded-2xl border-2 flex flex-col items-center justify-center gap-3 transition-all ${
                     paymentMethod === 'pix' 
-                      ? 'border-[#303392] bg-[#303392]/5 text-[#303392]' 
+                      ? 'border-[#303392] dark:border-blue-500 bg-[#303392]/5 dark:bg-blue-900/20 text-[#303392] dark:text-blue-400' 
                       : 'border-gray-100 dark:border-slate-800 bg-gray-50 dark:bg-slate-800/50 text-gray-500 dark:text-slate-400 hover:border-gray-200 dark:border-slate-700'
                   }`}
                 >
@@ -154,20 +154,20 @@ export function PaymentCheckout({ eventId, onBack, onSuccess }: PaymentCheckoutP
                 <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
                   <div>
                     <label className="block text-sm font-bold text-gray-700 dark:text-slate-300 mb-2">Número do Cartão</label>
-                    <input type="text" placeholder="0000 0000 0000 0000" className="w-full px-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] rounded-xl outline-none font-medium" />
+                    <input type="text" placeholder="0000 0000 0000 0000" className="w-full px-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] dark:border-blue-500 rounded-xl outline-none font-medium" />
                   </div>
                   <div>
                     <label className="block text-sm font-bold text-gray-700 dark:text-slate-300 mb-2">Nome do Titular</label>
-                    <input type="text" placeholder="Nome como está no cartão" className="w-full px-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] rounded-xl outline-none font-medium" />
+                    <input type="text" placeholder="Nome como está no cartão" className="w-full px-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] dark:border-blue-500 rounded-xl outline-none font-medium" />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-bold text-gray-700 dark:text-slate-300 mb-2">Validade</label>
-                      <input type="text" placeholder="MM/AA" className="w-full px-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] rounded-xl outline-none font-medium" />
+                      <input type="text" placeholder="MM/AA" className="w-full px-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] dark:border-blue-500 rounded-xl outline-none font-medium" />
                     </div>
                     <div>
                       <label className="block text-sm font-bold text-gray-700 dark:text-slate-300 mb-2">CVV</label>
-                      <input type="text" placeholder="123" className="w-full px-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] rounded-xl outline-none font-medium" />
+                      <input type="text" placeholder="123" className="w-full px-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] dark:border-blue-500 rounded-xl outline-none font-medium" />
                     </div>
                   </div>
                 </div>
@@ -213,7 +213,7 @@ export function PaymentCheckout({ eventId, onBack, onSuccess }: PaymentCheckoutP
 
               <div className="flex justify-between items-center mb-8 pt-6 border-t border-gray-100 dark:border-slate-800">
                 <span className="font-black text-gray-900 dark:text-white">Total</span>
-                <span className="text-2xl font-black text-[#303392]">{priceFormatted}</span>
+                <span className="text-2xl font-black text-[#303392] dark:text-blue-400">{priceFormatted}</span>
               </div>
 
               <button

@@ -183,7 +183,7 @@ export function EventDetails({ eventId, onBack, onProceedToPayment }: EventDetai
   if (loading) {
     return (
       <div className="min-h-screen bg-[#F8FAFC] dark:bg-slate-950 flex items-center justify-center">
-        <Loader2 className="w-12 h-12 animate-spin text-[#303392]" />
+        <Loader2 className="w-12 h-12 animate-spin text-[#303392] dark:text-blue-400" />
       </div>
     );
   }
@@ -192,7 +192,7 @@ export function EventDetails({ eventId, onBack, onProceedToPayment }: EventDetai
     return (
       <div className="min-h-screen bg-[#F8FAFC] dark:bg-slate-950 flex flex-col items-center justify-center p-6">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Evento não encontrado</h2>
-        <button onClick={onBack} className="text-[#303392] font-bold flex items-center gap-2 hover:underline">
+        <button onClick={onBack} className="text-[#303392] dark:text-blue-400 font-bold flex items-center gap-2 hover:underline">
           <ArrowLeft className="w-5 h-5" /> Voltar ao Painel
         </button>
       </div>
@@ -204,7 +204,7 @@ export function EventDetails({ eventId, onBack, onProceedToPayment }: EventDetai
       {/* Botão de Voltar Flutuante */}
       <button 
         onClick={onBack}
-        className="fixed top-6 left-6 z-50 p-3 bg-white dark:bg-slate-900 text-[#303392] shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:bg-gray-50 dark:bg-slate-800/50 rounded-full transition-all group flex items-center gap-2 pr-5"
+        className="fixed top-6 left-6 z-50 p-3 bg-white dark:bg-slate-900 text-[#303392] dark:text-blue-400 shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:bg-gray-50 dark:hover:bg-slate-800/50 dark:bg-slate-800/50 rounded-full transition-all group flex items-center gap-2 pr-5"
       >
         <ArrowLeft className="w-6 h-6" />
         <span className="font-bold text-sm hidden sm:block">Voltar</span>
@@ -251,22 +251,22 @@ export function EventDetails({ eventId, onBack, onProceedToPayment }: EventDetai
             {/* Cards de Informação Rápida */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="bg-white dark:bg-slate-900 p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-800 flex flex-col items-center justify-center text-center">
-                <Calendar className="w-6 h-6 text-[#303392] mb-2" />
+                <Calendar className="w-6 h-6 text-[#303392] dark:text-blue-400 mb-2" />
                 <span className="text-xs text-gray-500 dark:text-slate-400 font-bold uppercase">Data</span>
                 <span className="text-sm font-extrabold text-gray-900 dark:text-white">{event.date}</span>
               </div>
               <div className="bg-white dark:bg-slate-900 p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-800 flex flex-col items-center justify-center text-center">
-                <Clock className="w-6 h-6 text-[#303392] mb-2" />
+                <Clock className="w-6 h-6 text-[#303392] dark:text-blue-400 mb-2" />
                 <span className="text-xs text-gray-500 dark:text-slate-400 font-bold uppercase">Horário</span>
                 <span className="text-sm font-extrabold text-gray-900 dark:text-white">{event.time}</span>
               </div>
               <div className="bg-white dark:bg-slate-900 p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-800 flex flex-col items-center justify-center text-center">
-                <MapPin className="w-6 h-6 text-[#303392] mb-2" />
+                <MapPin className="w-6 h-6 text-[#303392] dark:text-blue-400 mb-2" />
                 <span className="text-xs text-gray-500 dark:text-slate-400 font-bold uppercase">Local</span>
                 <span className="text-sm font-extrabold text-gray-900 dark:text-white">{event.location}</span>
               </div>
               <div className="bg-white dark:bg-slate-900 p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-800 flex flex-col items-center justify-center text-center">
-                <Users className="w-6 h-6 text-[#303392] mb-2" />
+                <Users className="w-6 h-6 text-[#303392] dark:text-blue-400 mb-2" />
                 <span className="text-xs text-gray-500 dark:text-slate-400 font-bold uppercase">Capacidade</span>
                 <span className="text-sm font-extrabold text-gray-900 dark:text-white">{event.capacity || 'Livre'} pessoas</span>
               </div>
@@ -275,7 +275,7 @@ export function EventDetails({ eventId, onBack, onProceedToPayment }: EventDetai
             {/* Descrição */}
             <div className="bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-sm border border-gray-100 dark:border-slate-800">
               <h3 className="text-2xl font-extrabold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                <Tag className="w-6 h-6 text-[#303392]" /> Sobre o Evento
+                <Tag className="w-6 h-6 text-[#303392] dark:text-blue-400" /> Sobre o Evento
               </h3>
               <p className="text-gray-600 dark:text-slate-400 leading-relaxed text-lg whitespace-pre-wrap">
                 {event.description || 'Nenhuma descrição fornecida para este evento.'}
@@ -286,7 +286,7 @@ export function EventDetails({ eventId, onBack, onProceedToPayment }: EventDetai
             {event.scheduleList?.length > 0 && (
               <div className="bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-sm border border-gray-100 dark:border-slate-800">
                 <h3 className="text-2xl font-extrabold text-gray-900 dark:text-white mb-8 flex items-center gap-2">
-                  <Clock className="w-6 h-6 text-[#303392]" /> Programação do Evento
+                  <Clock className="w-6 h-6 text-[#303392] dark:text-blue-400" /> Programação do Evento
                 </h3>
                 
                 <div className="relative border-l-2 border-gray-100 dark:border-slate-800 ml-4 space-y-8">
@@ -296,7 +296,7 @@ export function EventDetails({ eventId, onBack, onProceedToPayment }: EventDetai
                       <div className="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-white dark:bg-slate-900 border-4 border-[#E31E24] shadow-sm"></div>
                       
                       <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-4 mb-1">
-                        <span className="text-[#303392] font-black text-lg bg-[#F8FAFC] dark:bg-slate-950 px-3 py-1 rounded-lg w-max border border-gray-100 dark:border-slate-800">
+                        <span className="text-[#303392] dark:text-blue-400 font-black text-lg bg-[#F8FAFC] dark:bg-slate-950 px-3 py-1 rounded-lg w-max border border-gray-100 dark:border-slate-800">
                           {item.time}
                         </span>
                         <h4 className="text-xl font-bold text-gray-900 dark:text-white">{item.title}</h4>
@@ -316,7 +316,7 @@ export function EventDetails({ eventId, onBack, onProceedToPayment }: EventDetai
             {event.speakersList?.length > 0 && (
               <div className="space-y-6">
                 <h3 className="text-2xl font-extrabold text-gray-900 dark:text-white flex items-center gap-2">
-                  <Users className="w-6 h-6 text-[#303392]" /> Palestrantes Confirmados
+                  <Users className="w-6 h-6 text-[#303392] dark:text-blue-400" /> Palestrantes Confirmados
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {event.speakersList.map((speaker: any, index: number) => (
@@ -325,7 +325,7 @@ export function EventDetails({ eventId, onBack, onProceedToPayment }: EventDetai
                         {speaker.imageUrl ? (
                           <img src={speaker.imageUrl} alt={speaker?.name || 'Palestrante'} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                         ) : (
-                          <div className="w-full h-full bg-[#F8FAFC] dark:bg-slate-950 flex items-center justify-center text-[#303392] font-bold text-5xl">
+                          <div className="w-full h-full bg-[#F8FAFC] dark:bg-slate-950 flex items-center justify-center text-[#303392] dark:text-blue-400 font-bold text-5xl">
                             {speaker?.name ? speaker.name.charAt(0).toUpperCase() : '?'}
                           </div>
                         )}
@@ -335,7 +335,7 @@ export function EventDetails({ eventId, onBack, onProceedToPayment }: EventDetai
                       <div className="p-6 flex-1 flex flex-col">
                         <h4 className="text-gray-900 dark:text-white font-extrabold text-xl mb-1">{speaker?.name || 'Nome não informado'}</h4>
                         {speaker.role && (
-                          <p className="text-[#303392] text-sm font-bold mb-4">{speaker.role}</p>
+                          <p className="text-[#303392] dark:text-blue-400 text-sm font-bold mb-4">{speaker.role}</p>
                         )}
                         
                         <div className="flex-1"></div>
@@ -343,7 +343,7 @@ export function EventDetails({ eventId, onBack, onProceedToPayment }: EventDetai
                         <div className="mt-4 pt-4 border-t border-gray-100 dark:border-slate-800 flex items-center justify-between">
                           <div className="flex gap-3 text-gray-400">
                             {/* LinkedIn SVG */}
-                            <svg className="w-5 h-5 hover:text-[#303392] cursor-pointer transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                            <svg className="w-5 h-5 hover:text-[#303392] dark:text-blue-400 cursor-pointer transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                             {/* Instagram SVG */}
                             <svg className="w-5 h-5 hover:text-[#E31E24] cursor-pointer transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                           </div>
@@ -370,14 +370,14 @@ export function EventDetails({ eventId, onBack, onProceedToPayment }: EventDetai
                   
                   return (
                     <div key={category} className="w-full flex flex-col items-center mb-12 last:mb-0">
-                      <h4 className="text-[#303392] text-sm font-bold uppercase tracking-[0.2em] mb-6">{category === 'Patrocinador' ? 'Patrocinadores' : category === 'Apoiador' ? 'Apoiadores' : 'Realização'}</h4>
+                      <h4 className="text-[#303392] dark:text-blue-400 text-sm font-bold uppercase tracking-[0.2em] mb-6">{category === 'Patrocinador' ? 'Patrocinadores' : category === 'Apoiador' ? 'Apoiadores' : 'Realização'}</h4>
                       <div className="flex flex-wrap justify-center gap-6 w-full">
                         {filtered.map((sponsor: any, idx: number) => (
                           <div key={idx} className={`bg-[#F8FAFC] dark:bg-slate-950 border border-gray-100 dark:border-slate-800 p-6 rounded-2xl flex items-center justify-center transition-all hover:border-gray-200 dark:border-slate-700 hover:shadow-sm ${category === 'Patrocinador' || category === 'Realização' ? 'w-full max-w-[400px] h-32' : 'w-[200px] h-28'}`}>
                             {sponsor.imageUrl ? (
                               <img src={sponsor.imageUrl} alt={sponsor.name} className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300 opacity-80 hover:opacity-100" />
                             ) : (
-                              <span className="text-[#303392] font-bold text-lg tracking-wide text-center">{sponsor.name}</span>
+                              <span className="text-[#303392] dark:text-blue-400 font-bold text-lg tracking-wide text-center">{sponsor.name}</span>
                             )}
                           </div>
                         ))}
@@ -390,8 +390,8 @@ export function EventDetails({ eventId, onBack, onProceedToPayment }: EventDetai
 
             {/* Avaliação do Evento (se usuário fez checkin) */}
             {userAttended && !hasReviewed && (
-              <div className="bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-sm border border-[#303392]/20">
-                <h3 className="text-xl font-extrabold text-[#303392] mb-2">Como foi o evento?</h3>
+              <div className="bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-sm border border-[#303392] dark:border-blue-500/20">
+                <h3 className="text-xl font-extrabold text-[#303392] dark:text-blue-400 mb-2">Como foi o evento?</h3>
                 <p className="text-sm text-gray-500 dark:text-slate-400 mb-6">Como você já fez check-in, adoraríamos saber sua opinião!</p>
                 
                 <form onSubmit={handleSubmitReview}>
@@ -413,7 +413,7 @@ export function EventDetails({ eventId, onBack, onProceedToPayment }: EventDetai
                     value={myComment}
                     onChange={(e) => setMyComment(e.target.value)}
                     placeholder="Escreva um comentário sobre o evento..."
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-xl outline-none focus:border-[#303392] font-medium text-gray-700 dark:text-slate-300 resize-none mb-4"
+                    className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-xl outline-none focus:border-[#303392] dark:border-blue-500 font-medium text-gray-700 dark:text-slate-300 resize-none mb-4"
                     rows={3}
                   />
                   

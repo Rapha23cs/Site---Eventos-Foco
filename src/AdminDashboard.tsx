@@ -110,7 +110,7 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
   // Dados KPI Dinâmicos
   const kpis = [
     { title: 'Faturamento', value: loading ? '...' : `R$ ${revenue.toFixed(2)}`, trend: '+12.5%', isPositive: true, icon: DollarSign, color: 'text-emerald-600', bg: 'bg-emerald-100' },
-    { title: 'Ingressos Vendidos', value: loading ? '...' : totalTickets.toString(), trend: '+5.2%', isPositive: true, icon: Ticket, color: 'text-[#303392]', bg: 'bg-[#303392]/10' },
+    { title: 'Ingressos Vendidos', value: loading ? '...' : totalTickets.toString(), trend: '+5.2%', isPositive: true, icon: Ticket, color: 'text-[#303392] dark:text-blue-400', bg: 'bg-[#303392]/10 dark:bg-blue-900/30' },
     { title: 'Novos Usuários', value: loading ? '...' : totalUsers.toString(), trend: '+2.1%', isPositive: true, icon: Users, color: 'text-amber-600', bg: 'bg-amber-100' },
     { title: 'Acessos na Plataforma', value: '12.5K', trend: '+18.4%', isPositive: true, icon: MousePointerClick, color: 'text-purple-600', bg: 'bg-purple-100' }
   ];
@@ -180,7 +180,7 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
           <div className="flex items-center gap-2 text-gray-500 dark:text-slate-400 font-medium">
             <span>Visão Geral</span>
             <ChevronRight className="w-4 h-4" />
-            <span className="text-[#303392] font-bold">Dashboard Financeiro</span>
+            <span className="text-[#303392] dark:text-blue-400 font-bold">Dashboard Financeiro</span>
           </div>
           
           <div className="flex items-center gap-6">
@@ -191,11 +191,11 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
               <input
                 type="text"
                 placeholder="Busca rápida..."
-                className="w-full pl-10 pr-4 py-2.5 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] rounded-xl outline-none text-sm font-medium"
+                className="w-full pl-10 pr-4 py-2.5 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] dark:border-blue-500 rounded-xl outline-none text-sm font-medium"
               />
             </div>
             
-            <button className="relative p-2 text-gray-400 hover:text-[#303392] transition-colors">
+            <button className="relative p-2 text-gray-400 hover:text-[#303392] dark:text-blue-400 transition-colors">
               <Bell className="w-6 h-6" />
               <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-[#E31E24] rounded-full border-2 border-white"></span>
             </button>
@@ -284,13 +284,13 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
             <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-100 dark:border-slate-800 flex flex-col">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-extrabold text-gray-900 dark:text-white">Últimas Transações</h3>
-                <button className="text-[#303392] font-bold text-sm hover:underline">Ver todas</button>
+                <button className="text-[#303392] dark:text-blue-400 font-bold text-sm hover:underline">Ver todas</button>
               </div>
               
               <div className="space-y-5 flex-1 relative">
                 {loading && (
                   <div className="absolute inset-0 bg-white dark:bg-slate-900/50 backdrop-blur-sm z-10 flex items-center justify-center">
-                     <Loader2 className="w-8 h-8 animate-spin text-[#303392]" />
+                     <Loader2 className="w-8 h-8 animate-spin text-[#303392] dark:text-blue-400" />
                   </div>
                 )}
                 
@@ -305,7 +305,7 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
                         {sale.user.charAt(0)}
                       </div>
                       <div>
-                        <p className="text-sm font-extrabold text-gray-900 dark:text-white leading-tight group-hover:text-[#303392] transition-colors line-clamp-1">{sale.user}</p>
+                        <p className="text-sm font-extrabold text-gray-900 dark:text-white leading-tight group-hover:text-[#303392] dark:text-blue-400 transition-colors line-clamp-1">{sale.user}</p>
                         <p className="text-xs font-medium text-gray-500 dark:text-slate-400 line-clamp-1 w-32">{sale.event}</p>
                       </div>
                     </div>

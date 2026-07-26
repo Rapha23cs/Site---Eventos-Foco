@@ -98,14 +98,14 @@ export function AdminEventsList({ onCreateNew, onEdit, onViewAttendees }: AdminE
               placeholder="Buscar evento..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] rounded-xl outline-none text-sm font-medium"
+              className="w-full pl-10 pr-4 py-2 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] dark:border-blue-500 rounded-xl outline-none text-sm font-medium"
             />
           </div>
         </div>
 
         {loading ? (
           <div className="flex justify-center p-12">
-            <Loader2 className="w-8 h-8 animate-spin text-[#303392]" />
+            <Loader2 className="w-8 h-8 animate-spin text-[#303392] dark:text-blue-400" />
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -128,7 +128,7 @@ export function AdminEventsList({ onCreateNew, onEdit, onViewAttendees }: AdminE
                   </tr>
                 ) : (
                   filteredEvents.map((event) => (
-                    <tr key={event.id} className="hover:bg-gray-50 dark:bg-slate-800/50 transition-colors">
+                    <tr key={event.id} className="hover:bg-gray-50 dark:hover:bg-slate-800/50 dark:bg-slate-800/50 transition-colors">
                       <td className="p-4 pl-6">
                         <div className="flex items-center gap-4">
                           <img 
@@ -177,7 +177,7 @@ export function AdminEventsList({ onCreateNew, onEdit, onViewAttendees }: AdminE
                         </button>
                         <button 
                           onClick={() => onViewAttendees(event.id)}
-                          className="px-3 py-1.5 bg-[#303392]/10 text-[#303392] font-bold text-xs rounded-lg hover:bg-[#303392]/20 transition-colors mr-2"
+                          className="px-3 py-1.5 bg-[#303392]/10 dark:bg-blue-900/30 text-[#303392] dark:text-blue-400 font-bold text-xs rounded-lg hover:bg-[#303392]/20 transition-colors mr-2"
                         >
                           Participantes
                         </button>

@@ -51,7 +51,7 @@ export function UserTickets() {
   if (loading) {
     return (
       <div className="flex justify-center p-24">
-        <Loader2 className="w-12 h-12 animate-spin text-[#303392]" />
+        <Loader2 className="w-12 h-12 animate-spin text-[#303392] dark:text-blue-400" />
       </div>
     );
   }
@@ -59,7 +59,7 @@ export function UserTickets() {
   return (
     <div className="max-w-[1400px] mx-auto px-6 mt-8 animate-fade-in pb-24">
       <div className="flex items-center gap-4 mb-10">
-        <div className="w-12 h-12 bg-[#303392]/10 rounded-2xl flex items-center justify-center text-[#303392]">
+        <div className="w-12 h-12 bg-[#303392]/10 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center text-[#303392] dark:text-blue-400">
           <Ticket className="w-6 h-6" />
         </div>
         <div>
@@ -94,7 +94,7 @@ export function UserTickets() {
                   />
                   <div className="absolute top-4 left-4 bg-white dark:bg-slate-900/90 backdrop-blur-sm px-3 py-1 rounded-md text-xs font-bold shadow-sm">
                     {ticket.attended 
-                      ? <span className="text-[#303392]">CHECK-IN REALIZADO</span>
+                      ? <span className="text-[#303392] dark:text-blue-400">CHECK-IN REALIZADO</span>
                       : ticket.status === 'paid' || ticket.status === 'confirmed'
                         ? <span className="text-emerald-600">CONFIRMADO</span>
                         : <span className="text-[#E31E24]">PENDENTE</span>
@@ -104,7 +104,7 @@ export function UserTickets() {
 
                 <div className="p-6 flex-1 flex flex-col justify-between">
                   <div>
-                    <span className="text-xs font-bold text-[#303392] uppercase tracking-wider mb-2 block">{event.type || 'Evento'}</span>
+                    <span className="text-xs font-bold text-[#303392] dark:text-blue-400 uppercase tracking-wider mb-2 block">{event.type || 'Evento'}</span>
                     <h3 className="text-xl font-extrabold text-gray-900 dark:text-white leading-tight mb-4 line-clamp-2">{event.name}</h3>
                     
                     <div className="space-y-2">

@@ -7,7 +7,7 @@ export function AdminSettings() {
   return (
     <div className="max-w-3xl mx-auto px-6 mt-8 animate-fade-in pb-24">
       <div className="flex items-center gap-4 mb-10">
-        <div className="w-12 h-12 bg-[#303392]/10 rounded-2xl flex items-center justify-center text-[#303392]">
+        <div className="w-12 h-12 bg-[#303392]/10 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center text-[#303392] dark:text-blue-400">
           <Settings className="w-6 h-6" />
         </div>
         <div>

@@ -189,7 +189,7 @@ export function AdminCreateEvent({ eventId, onBack }: AdminCreateEventProps) {
   if (fetching) {
     return (
       <div className="flex-1 flex items-center justify-center">
-        <Loader2 className="w-12 h-12 animate-spin text-[#303392]" />
+        <Loader2 className="w-12 h-12 animate-spin text-[#303392] dark:text-blue-400" />
       </div>
     );
   }
@@ -208,7 +208,7 @@ export function AdminCreateEvent({ eventId, onBack }: AdminCreateEventProps) {
       <div className="flex items-center gap-4">
         <button 
           onClick={onBack}
-          className="p-2 text-gray-400 hover:text-[#303392] hover:bg-gray-100 rounded-full transition-colors"
+          className="p-2 text-gray-400 hover:text-[#303392] dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-full transition-colors"
         >
           <ArrowLeft className="w-6 h-6" />
         </button>
@@ -229,7 +229,7 @@ export function AdminCreateEvent({ eventId, onBack }: AdminCreateEventProps) {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] rounded-xl outline-none font-medium"
+                className="w-full px-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] dark:border-blue-500 rounded-xl outline-none font-medium"
                 placeholder="Ex: Workshop de Tecnologia"
               />
             </div>
@@ -240,7 +240,7 @@ export function AdminCreateEvent({ eventId, onBack }: AdminCreateEventProps) {
                 name="type"
                 value={formData.type}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] rounded-xl outline-none font-medium"
+                className="w-full px-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] dark:border-blue-500 rounded-xl outline-none font-medium"
               >
                 <option value="Curso">Curso</option>
                 <option value="Fórum">Fórum</option>
@@ -254,7 +254,7 @@ export function AdminCreateEvent({ eventId, onBack }: AdminCreateEventProps) {
                 name="date"
                 value={formData.date}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] rounded-xl outline-none font-medium"
+                className="w-full px-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] dark:border-blue-500 rounded-xl outline-none font-medium"
                 placeholder="Ex: 15/10/2026"
               />
             </div>
@@ -266,7 +266,7 @@ export function AdminCreateEvent({ eventId, onBack }: AdminCreateEventProps) {
                 name="time"
                 value={formData.time}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] rounded-xl outline-none font-medium"
+                className="w-full px-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] dark:border-blue-500 rounded-xl outline-none font-medium"
                 placeholder="Ex: 14:00 às 18:00"
               />
             </div>
@@ -279,7 +279,7 @@ export function AdminCreateEvent({ eventId, onBack }: AdminCreateEventProps) {
                 name="price"
                 value={formData.price}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] rounded-xl outline-none font-medium"
+                className="w-full px-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] dark:border-blue-500 rounded-xl outline-none font-medium"
                 placeholder="Deixe em branco para gratuito"
               />
             </div>
@@ -291,7 +291,7 @@ export function AdminCreateEvent({ eventId, onBack }: AdminCreateEventProps) {
                 name="capacity"
                 value={formData.capacity}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] rounded-xl outline-none font-medium"
+                className="w-full px-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] dark:border-blue-500 rounded-xl outline-none font-medium"
                 placeholder="Ex: 200"
               />
             </div>
@@ -304,7 +304,7 @@ export function AdminCreateEvent({ eventId, onBack }: AdminCreateEventProps) {
               name="location"
               value={formData.location}
               onChange={handleChange}
-              className="w-full px-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] rounded-xl outline-none font-medium"
+              className="w-full px-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] dark:border-blue-500 rounded-xl outline-none font-medium"
               placeholder="Ex: Centro de Convenções"
             />
           </div>
@@ -328,7 +328,7 @@ export function AdminCreateEvent({ eventId, onBack }: AdminCreateEventProps) {
               value={formData.description}
               onChange={handleChange}
               rows={4}
-              className="w-full px-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] rounded-xl outline-none font-medium resize-none"
+              className="w-full px-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] dark:border-blue-500 rounded-xl outline-none font-medium resize-none"
               placeholder="Descreva os detalhes do evento..."
             ></textarea>
           </div>
@@ -337,12 +337,12 @@ export function AdminCreateEvent({ eventId, onBack }: AdminCreateEventProps) {
           <div className="pt-6 border-t border-gray-100 dark:border-slate-800 animate-fade-in">
             <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-extrabold text-gray-900 dark:text-white flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-[#303392]" /> Programação
+                  <Clock className="w-5 h-5 text-[#303392] dark:text-blue-400" /> Programação
                 </h3>
                 <button 
                   type="button" 
                   onClick={addScheduleItem}
-                  className="flex items-center gap-1 text-sm font-bold text-[#303392] hover:text-[#1E205A] transition-colors"
+                  className="flex items-center gap-1 text-sm font-bold text-[#303392] dark:text-blue-400 hover:text-[#1E205A] dark:text-blue-300 transition-colors"
                 >
                   <PlusCircle className="w-4 h-4" /> Adicionar Item
                 </button>
@@ -368,7 +368,7 @@ export function AdminCreateEvent({ eventId, onBack }: AdminCreateEventProps) {
                         type="text"
                         value={item.time}
                         onChange={(e) => updateScheduleItem(idx, 'time', e.target.value)}
-                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-[#303392] rounded-lg outline-none text-sm font-medium"
+                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-[#303392] dark:border-blue-500 rounded-lg outline-none text-sm font-medium"
                         placeholder="Ex: 10:00"
                       />
                     </div>
@@ -379,7 +379,7 @@ export function AdminCreateEvent({ eventId, onBack }: AdminCreateEventProps) {
                         type="text"
                         value={item.title}
                         onChange={(e) => updateScheduleItem(idx, 'title', e.target.value)}
-                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-[#303392] rounded-lg outline-none text-sm font-medium"
+                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-[#303392] dark:border-blue-500 rounded-lg outline-none text-sm font-medium"
                         placeholder="Ex: Palestra Magna"
                       />
                     </div>
@@ -390,7 +390,7 @@ export function AdminCreateEvent({ eventId, onBack }: AdminCreateEventProps) {
                         type="text"
                         value={item.description}
                         onChange={(e) => updateScheduleItem(idx, 'description', e.target.value)}
-                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-[#303392] rounded-lg outline-none text-sm font-medium"
+                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-[#303392] dark:border-blue-500 rounded-lg outline-none text-sm font-medium"
                         placeholder="Ex: Apresentação sobre futuro do mercado"
                       />
                     </div>
@@ -404,12 +404,12 @@ export function AdminCreateEvent({ eventId, onBack }: AdminCreateEventProps) {
           <div className="pt-6 border-t border-gray-100 dark:border-slate-800 animate-fade-in">
             <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-extrabold text-gray-900 dark:text-white flex items-center gap-2">
-                  <Users className="w-5 h-5 text-[#303392]" /> Palestrantes
+                  <Users className="w-5 h-5 text-[#303392] dark:text-blue-400" /> Palestrantes
                 </h3>
                 <button 
                   type="button" 
                   onClick={addSpeaker}
-                  className="flex items-center gap-1 text-sm font-bold text-[#303392] hover:text-[#1E205A] transition-colors"
+                  className="flex items-center gap-1 text-sm font-bold text-[#303392] dark:text-blue-400 hover:text-[#1E205A] dark:text-blue-300 transition-colors"
                 >
                   <PlusCircle className="w-4 h-4" /> Adicionar Palestrante
                 </button>
@@ -435,7 +435,7 @@ export function AdminCreateEvent({ eventId, onBack }: AdminCreateEventProps) {
                         type="text"
                         value={speaker.name}
                         onChange={(e) => updateSpeaker(idx, 'name', e.target.value)}
-                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-[#303392] rounded-lg outline-none text-sm font-medium"
+                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-[#303392] dark:border-blue-500 rounded-lg outline-none text-sm font-medium"
                         placeholder="Nome do palestrante"
                       />
                     </div>
@@ -446,7 +446,7 @@ export function AdminCreateEvent({ eventId, onBack }: AdminCreateEventProps) {
                         type="text"
                         value={speaker.role}
                         onChange={(e) => updateSpeaker(idx, 'role', e.target.value)}
-                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-[#303392] rounded-lg outline-none text-sm font-medium"
+                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-[#303392] dark:border-blue-500 rounded-lg outline-none text-sm font-medium"
                         placeholder="Ex: Especialista em IA"
                       />
                     </div>
@@ -470,7 +470,7 @@ export function AdminCreateEvent({ eventId, onBack }: AdminCreateEventProps) {
           <div className="pt-6 border-t border-gray-100 dark:border-slate-800 animate-fade-in">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-extrabold text-gray-900 dark:text-white flex items-center gap-2">
-                <Briefcase className="w-5 h-5 text-[#303392]" /> Parcerias & Realização
+                <Briefcase className="w-5 h-5 text-[#303392] dark:text-blue-400" /> Parcerias & Realização
               </h3>
               <button 
                 type="button" 
@@ -501,7 +501,7 @@ export function AdminCreateEvent({ eventId, onBack }: AdminCreateEventProps) {
                           type="text"
                           value={sponsor.name}
                           onChange={(e) => updateSponsor(idx, 'name', e.target.value)}
-                          className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-[#303392] rounded-lg outline-none text-sm font-medium"
+                          className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-[#303392] dark:border-blue-500 rounded-lg outline-none text-sm font-medium"
                           placeholder="Nome do patrocinador"
                         />
                       </div>
@@ -511,7 +511,7 @@ export function AdminCreateEvent({ eventId, onBack }: AdminCreateEventProps) {
                         <select 
                           value={sponsor.category || 'Patrocinador'}
                           onChange={(e) => updateSponsor(idx, 'category', e.target.value)}
-                          className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-[#303392] rounded-lg outline-none text-sm font-medium"
+                          className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-[#303392] dark:border-blue-500 rounded-lg outline-none text-sm font-medium"
                         >
                           <option value="Patrocinador">Patrocinador</option>
                           <option value="Apoiador">Apoiador</option>
@@ -538,7 +538,7 @@ export function AdminCreateEvent({ eventId, onBack }: AdminCreateEventProps) {
             <button
               type="button"
               onClick={onBack}
-              className="px-6 py-3 text-gray-600 dark:text-slate-400 font-bold hover:bg-gray-100 rounded-xl transition-colors"
+              className="px-6 py-3 text-gray-600 dark:text-slate-400 font-bold hover:bg-gray-100 dark:hover:bg-slate-800 rounded-xl transition-colors"
             >
               Cancelar
             </button>

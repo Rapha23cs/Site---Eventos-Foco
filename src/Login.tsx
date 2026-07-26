@@ -180,7 +180,7 @@ export function Login({ onBack, onLoginUser, onLoginAdmin }: LoginProps) {
         </div>
         
         <div className="relative z-10 flex flex-col items-center justify-center p-12 text-center">
-          <div className="bg-white dark:bg-slate-900 p-6 rounded-[32px] shadow-2xl mb-10 transform hover:scale-105 transition-transform duration-500">
+          <div className="bg-white p-6 rounded-[32px] shadow-2xl mb-10 transform hover:scale-105 transition-transform duration-500">
             <img 
               src="/logo1.png" 
               alt="AppEventos Logo" 
@@ -193,8 +193,8 @@ export function Login({ onBack, onLoginUser, onLoginAdmin }: LoginProps) {
       </div>
 
       {/* Lado Direito - Formulário de Login */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 xl:p-24 bg-[#F5F7FA]">
-        <div className="w-full max-w-md bg-white dark:bg-slate-900 lg:bg-transparent p-8 lg:p-0 rounded-[32px] shadow-[0_8px_32px_rgba(0,0,0,0.06)] lg:shadow-none">
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 xl:p-24 bg-[#F5F7FA] dark:bg-slate-950">
+        <div className="w-full max-w-md bg-white dark:bg-slate-900 lg:bg-transparent lg:dark:bg-transparent p-8 lg:p-0 rounded-[32px] shadow-[0_8px_32px_rgba(0,0,0,0.06)] lg:shadow-none">
           {/* Logo fallback para mobile */}
           <div className="lg:hidden flex justify-center mb-8">
             <img 
@@ -205,7 +205,7 @@ export function Login({ onBack, onLoginUser, onLoginAdmin }: LoginProps) {
           </div>
 
           <div className="mb-10 text-center lg:text-left">
-            <h2 className="text-3xl font-extrabold text-[#303392] dark:text-blue-400 mb-2 tracking-tight">
+            <h2 className="text-3xl font-extrabold text-[#303392] dark:text-white mb-2 tracking-tight">
               {isForgotPassword ? 'Recuperar Senha' : isRegistering ? 'Criar Conta' : 'Login'}
             </h2>
             <p className="text-gray-500 dark:text-slate-400 font-medium">
@@ -240,7 +240,7 @@ export function Login({ onBack, onLoginUser, onLoginAdmin }: LoginProps) {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="seu@email.com"
-                    className="w-full pl-11 pr-4 py-4 bg-[#F9FAFB] dark:bg-slate-950 lg:bg-white dark:bg-slate-900 border-2 border-gray-200 dark:border-slate-700 focus:border-[#303392] focus:ring-4 focus:ring-[#303392]/10 rounded-[16px] outline-none transition-all text-gray-800 dark:text-slate-200 font-semibold placeholder:text-gray-400 placeholder:font-normal shadow-sm"
+                    className="w-full pl-11 pr-4 py-4 bg-[#F9FAFB] dark:bg-slate-950 lg:bg-white lg:dark:bg-slate-900 border-2 border-gray-200 dark:border-slate-700 focus:border-[#303392] focus:ring-4 focus:ring-[#303392]/10 rounded-[16px] outline-none transition-all text-gray-800 dark:text-slate-200 font-semibold placeholder:text-gray-400 placeholder:font-normal shadow-sm"
                   />
                 </div>
               </div>
@@ -286,7 +286,7 @@ export function Login({ onBack, onLoginUser, onLoginAdmin }: LoginProps) {
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       placeholder="Seu nome completo"
-                      className="w-full pl-11 pr-4 py-4 bg-[#F9FAFB] dark:bg-slate-950 lg:bg-white dark:bg-slate-900 border-2 border-gray-200 dark:border-slate-700 focus:border-[#303392] focus:ring-4 focus:ring-[#303392]/10 rounded-[16px] outline-none transition-all text-gray-800 dark:text-slate-200 font-semibold placeholder:text-gray-400 placeholder:font-normal shadow-sm"
+                      className="w-full pl-11 pr-4 py-4 bg-[#F9FAFB] dark:bg-slate-950 lg:bg-white lg:dark:bg-slate-900 border-2 border-gray-200 dark:border-slate-700 focus:border-[#303392] focus:ring-4 focus:ring-[#303392]/10 rounded-[16px] outline-none transition-all text-gray-800 dark:text-slate-200 font-semibold placeholder:text-gray-400 placeholder:font-normal shadow-sm"
                     />
                   </div>
                 </div>
@@ -328,7 +328,7 @@ export function Login({ onBack, onLoginUser, onLoginAdmin }: LoginProps) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="seu@email.com"
-                  className="w-full pl-11 pr-4 py-4 bg-[#F9FAFB] dark:bg-slate-950 lg:bg-white dark:bg-slate-900 border-2 border-gray-200 dark:border-slate-700 focus:border-[#303392] focus:ring-4 focus:ring-[#303392]/10 rounded-[16px] outline-none transition-all text-gray-800 dark:text-slate-200 font-semibold placeholder:text-gray-400 placeholder:font-normal shadow-sm"
+                  className="w-full pl-11 pr-4 py-4 bg-[#F9FAFB] dark:bg-slate-950 lg:bg-white lg:dark:bg-slate-900 border-2 border-gray-200 dark:border-slate-700 focus:border-[#303392] focus:ring-4 focus:ring-[#303392]/10 rounded-[16px] outline-none transition-all text-gray-800 dark:text-slate-200 font-semibold placeholder:text-gray-400 placeholder:font-normal shadow-sm"
                 />
               </div>
             </div>
@@ -345,7 +345,7 @@ export function Login({ onBack, onLoginUser, onLoginAdmin }: LoginProps) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-11 pr-12 py-4 bg-[#F9FAFB] dark:bg-slate-950 lg:bg-white dark:bg-slate-900 border-2 border-gray-200 dark:border-slate-700 focus:border-[#303392] focus:ring-4 focus:ring-[#303392]/10 rounded-[16px] outline-none transition-all text-gray-800 dark:text-slate-200 font-semibold placeholder:text-gray-400 placeholder:font-normal shadow-sm"
+                  className="w-full pl-11 pr-12 py-4 bg-[#F9FAFB] dark:bg-slate-950 lg:bg-white lg:dark:bg-slate-900 border-2 border-gray-200 dark:border-slate-700 focus:border-[#303392] focus:ring-4 focus:ring-[#303392]/10 rounded-[16px] outline-none transition-all text-gray-800 dark:text-slate-200 font-semibold placeholder:text-gray-400 placeholder:font-normal shadow-sm"
                 />
                 <button
                   type="button"
@@ -370,7 +370,7 @@ export function Login({ onBack, onLoginUser, onLoginAdmin }: LoginProps) {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full pl-11 pr-12 py-4 bg-[#F9FAFB] dark:bg-slate-950 lg:bg-white dark:bg-slate-900 border-2 border-gray-200 dark:border-slate-700 focus:border-[#303392] focus:ring-4 focus:ring-[#303392]/10 rounded-[16px] outline-none transition-all text-gray-800 dark:text-slate-200 font-semibold placeholder:text-gray-400 placeholder:font-normal shadow-sm"
+                    className="w-full pl-11 pr-12 py-4 bg-[#F9FAFB] dark:bg-slate-950 lg:bg-white lg:dark:bg-slate-900 border-2 border-gray-200 dark:border-slate-700 focus:border-[#303392] focus:ring-4 focus:ring-[#303392]/10 rounded-[16px] outline-none transition-all text-gray-800 dark:text-slate-200 font-semibold placeholder:text-gray-400 placeholder:font-normal shadow-sm"
                   />
                 </div>
               </div>
@@ -398,7 +398,7 @@ export function Login({ onBack, onLoginUser, onLoginAdmin }: LoginProps) {
                   </span>
                 </label>
                 
-                <button type="button" onClick={() => {setIsForgotPassword(true); setErrorMsg(''); setSuccessMsg('');}} className="text-sm font-bold text-[#E31E24] dark:text-red-400 hover:text-[#B31217] transition-colors hover:underline text-left">
+                <button type="button" onClick={() => {setIsForgotPassword(true); setErrorMsg(''); setSuccessMsg('');}} className="text-sm font-bold text-[#E31E24] dark:text-red-400 hover:text-[#B31217] dark:hover:text-red-300 transition-colors hover:underline text-left">
                   Esqueceu a Senha?
                 </button>
               </div>
@@ -434,7 +434,7 @@ export function Login({ onBack, onLoginUser, onLoginAdmin }: LoginProps) {
                 setErrorMsg('');
                 setSuccessMsg('');
               }}
-              className="text-[#303392] dark:text-blue-400 font-extrabold hover:underline"
+              className="text-[#303392] dark:text-blue-300 font-extrabold hover:underline"
             >
               {isRegistering ? 'Faça Login' : 'Cadastre-se'}
             </button>

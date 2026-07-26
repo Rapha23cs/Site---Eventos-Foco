@@ -144,6 +144,49 @@ export class EmailService {
   public static async sendEmail(options: SendEmailOptions): Promise<boolean> {
     return EmailService.getInstance().sendEmail(options);
   }
+
+  public async sendCertificateEmail(to: string, userName: string, eventName: string): Promise<SendEmailResult> {
+    const today = new Date().toLocaleDateString('pt-BR');
+    const htmlTemplate = `
+      <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 40px; background-color: #f9fafb; border: 1px solid #e5e7eb;">
+        <div style="background-color: white; padding: 50px; border: 8px solid #303392; border-radius: 20px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+          <div style="margin-bottom: 30px;">
+            <h1 style="color: #303392; font-size: 42px; margin: 0; text-transform: uppercase; letter-spacing: 4px;">Certificado de Participação</h1>
+          </div>
+          
+          <div style="margin-bottom: 40px;">
+            <p style="color: #4b5563; font-size: 18px; margin-bottom: 10px;">Certificamos que</p>
+            <h2 style="color: #111827; font-size: 36px; margin: 0; border-bottom: 2px solid #e5e7eb; display: inline-block; padding-bottom: 10px; font-weight: bold;">
+              ${userName}
+            </h2>
+          </div>
+          
+          <div style="margin-bottom: 50px;">
+            <p style="color: #4b5563; font-size: 18px; line-height: 1.6; max-width: 600px; margin: 0 auto;">
+              participou com êxito do evento <strong style="color: #E31E24;">${eventName}</strong>. Agradecemos sua valiosa presença e contribuição para o sucesso deste encontro.
+            </p>
+          </div>
+          
+          <div style="display: flex; justify-content: space-around; margin-top: 60px; padding-top: 40px; border-top: 1px solid #e5e7eb;">
+            <div style="text-align: center;">
+              <p style="margin: 0; font-weight: bold; color: #111827; font-size: 18px;">${today}</p>
+              <p style="margin: 5px 0 0; color: #6b7280; font-size: 14px;">Data de Emissão</p>
+            </div>
+            <div style="text-align: center;">
+              <p style="margin: 0; font-weight: bold; color: #303392; font-size: 18px;">AppEventos / Foco</p>
+              <p style="margin: 5px 0 0; color: #6b7280; font-size: 14px;">Organização</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    return this.sendEmailDetailed({
+      to,
+      subject: `Seu Certificado de Participação - ${eventName}`,
+      htmlContent: htmlTemplate,
+    });
+  }
 }
 
 export const emailService = EmailService.getInstance();

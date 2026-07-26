@@ -80,7 +80,7 @@ export function UserSettings() {
   if (loading) {
     return (
       <div className="flex justify-center p-24">
-        <Loader2 className="w-12 h-12 animate-spin text-[#303392]" />
+        <Loader2 className="w-12 h-12 animate-spin text-[#303392] dark:text-blue-400" />
       </div>
     );
   }
@@ -88,7 +88,7 @@ export function UserSettings() {
   return (
     <div className="max-w-3xl mx-auto px-6 mt-8 animate-fade-in pb-24">
       <div className="flex items-center gap-4 mb-10">
-        <div className="w-12 h-12 bg-[#303392]/10 rounded-2xl flex items-center justify-center text-[#303392]">
+        <div className="w-12 h-12 bg-[#303392]/10 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center text-[#303392] dark:text-blue-400">
           <User className="w-6 h-6" />
         </div>
         <div>
@@ -140,7 +140,7 @@ export function UserSettings() {
               <label className="block text-sm font-bold text-gray-700 dark:text-slate-300 mb-2 ml-1">Nome Completo</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <User className="h-5 w-5 text-[#303392]/50" />
+                  <User className="h-5 w-5 text-[#303392] dark:text-blue-400/50" />
                 </div>
                 <input
                   type="text"
@@ -148,7 +148,7 @@ export function UserSettings() {
                   value={profile.full_name}
                   onChange={handleChange}
                   required
-                  className="w-full pl-11 pr-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] rounded-xl outline-none text-gray-900 dark:text-white font-medium transition-colors"
+                  className="w-full pl-11 pr-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] dark:border-blue-500 rounded-xl outline-none text-gray-900 dark:text-white font-medium transition-colors"
                 />
               </div>
             </div>
@@ -157,7 +157,7 @@ export function UserSettings() {
               <label className="block text-sm font-bold text-gray-700 dark:text-slate-300 mb-2 ml-1">URL da Foto de Perfil</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <LinkIcon className="h-5 w-5 text-[#303392]/50" />
+                  <LinkIcon className="h-5 w-5 text-[#303392] dark:text-blue-400/50" />
                 </div>
                 <input
                   type="url"
@@ -165,7 +165,7 @@ export function UserSettings() {
                   value={profile.avatar_url}
                   onChange={handleChange}
                   placeholder="https://sua-imagem.com/foto.jpg"
-                  className="w-full pl-11 pr-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] rounded-xl outline-none text-gray-900 dark:text-white font-medium transition-colors"
+                  className="w-full pl-11 pr-4 py-3 bg-[#F8FAFC] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] dark:border-blue-500 rounded-xl outline-none text-gray-900 dark:text-white font-medium transition-colors"
                 />
               </div>
             </div>

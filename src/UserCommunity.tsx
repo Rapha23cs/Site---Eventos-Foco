@@ -88,7 +88,7 @@ export function UserCommunity() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-[#303392]/10 rounded-2xl flex items-center justify-center text-[#303392]">
+          <div className="w-12 h-12 bg-[#303392]/10 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center text-[#303392] dark:text-blue-400">
             <MessageSquare className="w-6 h-6" />
           </div>
           <div>
@@ -116,7 +116,7 @@ export function UserCommunity() {
       <div className="flex border-b border-gray-200 dark:border-slate-700 mb-8">
         <button 
           onClick={() => setActiveTab('reviews')}
-          className={`flex items-center gap-2 py-4 px-6 font-bold text-sm transition-colors relative ${activeTab === 'reviews' ? 'text-[#303392]' : 'text-gray-500 dark:text-slate-400 hover:text-gray-800 dark:text-slate-200'}`}
+          className={`flex items-center gap-2 py-4 px-6 font-bold text-sm transition-colors relative ${activeTab === 'reviews' ? 'text-[#303392] dark:text-blue-400' : 'text-gray-500 dark:text-slate-400 hover:text-gray-800 dark:text-slate-200'}`}
         >
           <Star className="w-4 h-4" />
           Avaliações de Eventos
@@ -126,7 +126,7 @@ export function UserCommunity() {
         </button>
         <button 
           onClick={() => setActiveTab('feedbacks')}
-          className={`flex items-center gap-2 py-4 px-6 font-bold text-sm transition-colors relative ${activeTab === 'feedbacks' ? 'text-[#303392]' : 'text-gray-500 dark:text-slate-400 hover:text-gray-800 dark:text-slate-200'}`}
+          className={`flex items-center gap-2 py-4 px-6 font-bold text-sm transition-colors relative ${activeTab === 'feedbacks' ? 'text-[#303392] dark:text-blue-400' : 'text-gray-500 dark:text-slate-400 hover:text-gray-800 dark:text-slate-200'}`}
         >
           <Lightbulb className="w-4 h-4" />
           Ideias e Sugestões do App
@@ -139,7 +139,7 @@ export function UserCommunity() {
       {/* Content */}
       {loading ? (
         <div className="flex justify-center p-24">
-          <Loader2 className="w-10 h-10 animate-spin text-[#303392]" />
+          <Loader2 className="w-10 h-10 animate-spin text-[#303392] dark:text-blue-400" />
         </div>
       ) : activeTab === 'reviews' ? (
         
@@ -240,7 +240,7 @@ export function UserCommunity() {
                 <select 
                   value={feedbackType}
                   onChange={e => setFeedbackType(e.target.value)}
-                  className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-xl outline-none focus:border-[#303392] font-medium text-gray-700 dark:text-slate-300"
+                  className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-xl outline-none focus:border-[#303392] dark:border-blue-500 font-medium text-gray-700 dark:text-slate-300"
                 >
                   <option value="sugestao">💡 Ideia / Sugestão</option>
                   <option value="bug">🐛 Reportar Bug</option>
@@ -255,7 +255,7 @@ export function UserCommunity() {
                   onChange={e => setFeedbackContent(e.target.value)}
                   rows={4}
                   placeholder="Descreva detalhadamente..."
-                  className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-xl outline-none focus:border-[#303392] font-medium text-gray-700 dark:text-slate-300 resize-none"
+                  className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-xl outline-none focus:border-[#303392] dark:border-blue-500 font-medium text-gray-700 dark:text-slate-300 resize-none"
                 ></textarea>
               </div>
 

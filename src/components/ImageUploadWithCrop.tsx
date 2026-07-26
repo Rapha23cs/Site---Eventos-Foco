@@ -132,7 +132,7 @@ export function ImageUploadWithCrop({
           <button
             type="button"
             onClick={triggerFileSelect}
-            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 border-2 border-dashed border-gray-300 hover:border-[#303392] hover:bg-[#303392]/5 rounded-xl text-gray-600 dark:text-slate-400 font-bold transition-all"
+            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 border-2 border-dashed border-gray-300 hover:border-[#303392] dark:border-blue-500 hover:bg-[#303392]/5 dark:bg-blue-900/20 rounded-xl text-gray-600 dark:text-slate-400 font-bold transition-all"
           >
             <Upload className="w-5 h-5" />
             {label}

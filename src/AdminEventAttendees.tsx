@@ -16,6 +16,7 @@ import {
   ShieldCheck,
   AlertTriangle,
   Clock,
+  Award,
 } from 'lucide-react';
 import { EmailService, type SendEmailResult } from './services/emailService';
 import { useToast } from './components/Toast';
@@ -33,6 +34,8 @@ export function AdminEventAttendees({ eventId, onBack }: AdminEventAttendeesProp
 
   // States para busca via QRCode / Filtro
   const [searchTerm, setSearchTerm] = useState('');
+  const [isEmitting, setIsEmitting] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   // Modal de adição manual
   const [showAddModal, setShowAddModal] = useState(false);
@@ -266,6 +269,65 @@ export function AdminEventAttendees({ eventId, onBack }: AdminEventAttendeesProp
     setTimeout(() => setCopied(false), 2500);
   };
 
+  const handleEmitCertificates = async () => {
+    const validatedAttendees = attendees.filter((a) => a.status === 'validated');
+    
+    if (validatedAttendees.length === 0) {
+      toast.warning('Aviso', 'Nenhum participante com ingresso validado foi encontrado.');
+      return;
+    }
+
+    setShowConfirmModal(true);
+  };
+
+  const confirmEmitCertificates = async () => {
+    setShowConfirmModal(false);
+    setIsEmitting(true);
+    
+    const validatedAttendees = attendees.filter((a) => a.status === 'validated');
+    let successCount = 0;
+    let errorCount = 0;
+
+    const emailServiceInstance = new EmailService();
+
+    for (const attendee of validatedAttendees) {
+      const email = attendee.profiles?.email;
+      const name = attendee.profiles?.full_name || 'Participante';
+      const eventTitle = eventData?.name || 'Evento';
+
+      if (email) {
+        try {
+          const result = await emailServiceInstance.sendCertificateEmail(email, name, eventTitle);
+          if (result.success) {
+            successCount++;
+          } else {
+            errorCount++;
+            console.error(`Falha ao enviar para ${email}:`, result.resendError);
+          }
+        } catch (err) {
+          errorCount++;
+          console.error(`Erro inesperado ao enviar para ${email}:`, err);
+        }
+      }
+    }
+
+    setIsEmitting(false);
+
+    if (successCount > 0) {
+      toast.success(
+        'Certificados Emitidos!',
+        `${successCount} certificado(s) enviado(s) com sucesso via e-mail.`
+      );
+    }
+    
+    if (errorCount > 0) {
+      toast.error(
+        'Aviso',
+        `Houve falha ao enviar ${errorCount} certificado(s). Verifique os limites do Resend ou logs no console.`
+      );
+    }
+  };
+
   const filteredAttendees = attendees.filter((a) => {
     const term = searchTerm.toLowerCase();
     const name = a.profiles?.full_name?.toLowerCase() || '';
@@ -279,7 +341,7 @@ export function AdminEventAttendees({ eventId, onBack }: AdminEventAttendeesProp
     <div className="max-w-[1200px] mx-auto px-6 mt-8 pb-24 animate-fade-in">
       <button
         onClick={onBack}
-        className="flex items-center gap-2 text-gray-500 dark:text-slate-400 hover:text-[#303392] font-semibold mb-6 transition-colors group"
+        className="flex items-center gap-2 text-gray-500 dark:text-slate-400 hover:text-[#303392] dark:text-blue-400 font-semibold mb-6 transition-colors group"
       >
         <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
         Voltar para Painel Admin
@@ -299,13 +361,24 @@ export function AdminEventAttendees({ eventId, onBack }: AdminEventAttendeesProp
           </p>
         </div>
 
-        <button
-          onClick={() => setShowAddModal(true)}
-          className="flex items-center justify-center gap-2 bg-gradient-to-r from-[#303392] to-[#1E205A] text-white font-bold px-6 py-3.5 rounded-2xl hover:shadow-lg hover:shadow-[#303392]/20 hover:scale-[1.02] transition-all"
-        >
-          <UserPlus className="w-5 h-5" />
-          Adicionar Participante
-        </button>
+        <div className="flex flex-col sm:flex-row gap-3 mt-4 md:mt-0">
+          <button
+            onClick={handleEmitCertificates}
+            disabled={isEmitting}
+            className="flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold px-6 py-3.5 rounded-2xl hover:shadow-lg hover:shadow-emerald-500/20 hover:scale-[1.02] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isEmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <Award className="w-5 h-5" />}
+            {isEmitting ? 'Emitindo...' : 'Emitir Certificados'}
+          </button>
+          
+          <button
+            onClick={() => setShowAddModal(true)}
+            className="flex items-center justify-center gap-2 bg-gradient-to-r from-[#303392] to-[#1E205A] text-white font-bold px-6 py-3.5 rounded-2xl hover:shadow-lg hover:shadow-[#303392]/20 hover:scale-[1.02] transition-all"
+          >
+            <UserPlus className="w-5 h-5" />
+            Adicionar Participante
+          </button>
+        </div>
       </div>
 
       {/* Filter / Search Bar */}
@@ -317,7 +390,7 @@ export function AdminEventAttendees({ eventId, onBack }: AdminEventAttendeesProp
             placeholder="Buscar por nome, e-mail ou código do ingresso..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-12 pr-4 py-3 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-xl outline-none focus:border-[#303392] text-sm font-medium text-gray-800 dark:text-slate-200"
+            className="w-full pl-12 pr-4 py-3 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-xl outline-none focus:border-[#303392] dark:border-blue-500 text-sm font-medium text-gray-800 dark:text-slate-200"
           />
         </div>
       </div>
@@ -325,7 +398,7 @@ export function AdminEventAttendees({ eventId, onBack }: AdminEventAttendeesProp
       {/* Attendees Table */}
       {loading ? (
         <div className="flex flex-col items-center justify-center py-20 bg-white dark:bg-slate-900 rounded-3xl border border-gray-100 dark:border-slate-800 shadow-sm">
-          <Loader2 className="w-10 h-10 text-[#303392] animate-spin mb-3" />
+          <Loader2 className="w-10 h-10 text-[#303392] dark:text-blue-400 animate-spin mb-3" />
           <p className="text-sm font-semibold text-gray-500 dark:text-slate-400">Carregando lista de inscritos...</p>
         </div>
       ) : filteredAttendees.length === 0 ? (
@@ -347,10 +420,10 @@ export function AdminEventAttendees({ eventId, onBack }: AdminEventAttendeesProp
               </thead>
               <tbody className="divide-y divide-gray-100 text-sm">
                 {filteredAttendees.map((attendee) => (
-                  <tr key={attendee.id} className="hover:bg-gray-50 dark:bg-slate-800/50/50 transition-colors">
+                  <tr key={attendee.id} className="hover:bg-gray-50 dark:hover:bg-slate-800/50 dark:bg-slate-800/50/50 transition-colors">
                     <td className="py-4 px-6">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center font-bold text-[#303392] uppercase border border-slate-200">
+                        <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center font-bold text-[#303392] dark:text-blue-400 uppercase border border-slate-200 dark:border-slate-700">
                           {attendee.profiles?.full_name?.[0] || 'U'}
                         </div>
                         <div>
@@ -375,7 +448,7 @@ export function AdminEventAttendees({ eventId, onBack }: AdminEventAttendeesProp
                           Ticket Validado (App)
                         </div>
                       ) : (
-                        <div className="flex items-center gap-2 text-slate-600 font-medium text-xs bg-slate-100 border border-slate-200 px-3.5 py-1.5 rounded-full w-fit">
+                        <div className="flex items-center gap-2 text-slate-600 font-medium text-xs bg-slate-100 border border-slate-200 dark:border-slate-700 px-3.5 py-1.5 rounded-full w-fit">
                           <Clock className="w-4 h-4 text-slate-400" />
                           Aguardando Validação no App
                         </div>
@@ -400,7 +473,7 @@ export function AdminEventAttendees({ eventId, onBack }: AdminEventAttendeesProp
               <XCircle className="w-5 h-5" />
             </button>
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-2xl bg-indigo-50 flex items-center justify-center text-[#303392]">
+              <div className="w-10 h-10 rounded-2xl bg-indigo-50 flex items-center justify-center text-[#303392] dark:text-blue-400">
                 <UserPlus className="w-5 h-5" />
               </div>
               <h3 className="text-2xl font-extrabold text-gray-900 dark:text-white">Adicionar Participante</h3>
@@ -419,7 +492,7 @@ export function AdminEventAttendees({ eventId, onBack }: AdminEventAttendeesProp
                   required
                   value={newUserNome}
                   onChange={(e) => setNewUserNome(e.target.value)}
-                  className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-xl outline-none focus:border-[#303392] font-medium text-gray-800 dark:text-slate-200 text-sm"
+                  className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-xl outline-none focus:border-[#303392] dark:border-blue-500 font-medium text-gray-800 dark:text-slate-200 text-sm"
                   placeholder="Ex: Raphael Sá"
                 />
               </div>
@@ -432,7 +505,7 @@ export function AdminEventAttendees({ eventId, onBack }: AdminEventAttendeesProp
                   required
                   value={newUserEmail}
                   onChange={(e) => setNewUserEmail(e.target.value)}
-                  className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-xl outline-none focus:border-[#303392] font-medium text-gray-800 dark:text-slate-200 text-sm"
+                  className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-xl outline-none focus:border-[#303392] dark:border-blue-500 font-medium text-gray-800 dark:text-slate-200 text-sm"
                   placeholder="Ex: raphael@exemplo.com"
                 />
               </div>
@@ -445,7 +518,7 @@ export function AdminEventAttendees({ eventId, onBack }: AdminEventAttendeesProp
                     type="text"
                     value={newUserEmpresa}
                     onChange={(e) => setNewUserEmpresa(e.target.value)}
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-xl outline-none focus:border-[#303392] font-medium text-gray-800 dark:text-slate-200 text-sm"
+                    className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-xl outline-none focus:border-[#303392] dark:border-blue-500 font-medium text-gray-800 dark:text-slate-200 text-sm"
                   />
                 </div>
                 <div>
@@ -456,7 +529,7 @@ export function AdminEventAttendees({ eventId, onBack }: AdminEventAttendeesProp
                     type="text"
                     value={newUserCargo}
                     onChange={(e) => setNewUserCargo(e.target.value)}
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-xl outline-none focus:border-[#303392] font-medium text-gray-800 dark:text-slate-200 text-sm"
+                    className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-xl outline-none focus:border-[#303392] dark:border-blue-500 font-medium text-gray-800 dark:text-slate-200 text-sm"
                   />
                 </div>
               </div>
@@ -468,7 +541,7 @@ export function AdminEventAttendees({ eventId, onBack }: AdminEventAttendeesProp
                   type="text"
                   value={newUserContato}
                   onChange={(e) => setNewUserContato(e.target.value)}
-                  className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-xl outline-none focus:border-[#303392] font-medium text-gray-800 dark:text-slate-200 text-sm"
+                  className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-xl outline-none focus:border-[#303392] dark:border-blue-500 font-medium text-gray-800 dark:text-slate-200 text-sm"
                 />
               </div>
               <button
@@ -552,6 +625,39 @@ export function AdminEventAttendees({ eventId, onBack }: AdminEventAttendeesProp
             >
               CONCLUÍDO
             </button>
+          </div>
+        </div>
+      )}
+      {/* Confirm Modal */}
+      {showConfirmModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/40 backdrop-blur-sm animate-fade-in">
+          <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl w-full max-w-md p-8 border border-gray-100 dark:border-slate-800 transform transition-all scale-100">
+            <div className="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Award className="w-8 h-8" />
+            </div>
+            
+            <h2 className="text-2xl font-extrabold text-center text-gray-900 dark:text-white mb-2">
+              Emitir Certificados
+            </h2>
+            
+            <p className="text-center text-gray-500 dark:text-slate-400 mb-8 font-medium">
+              O sistema irá gerar e enviar um e-mail com o certificado para <strong className="text-gray-900 dark:text-white">{attendees.filter(a => a.status === 'validated').length}</strong> participante(s) que tiveram o ingresso validado. Deseja continuar?
+            </p>
+            
+            <div className="flex gap-4">
+              <button
+                onClick={() => setShowConfirmModal(false)}
+                className="flex-1 py-3.5 px-4 bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-300 font-bold rounded-xl hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={confirmEmitCertificates}
+                className="flex-1 py-3.5 px-4 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700 hover:shadow-lg hover:shadow-emerald-600/30 transition-all"
+              >
+                Sim, Emitir
+              </button>
+            </div>
           </div>
         </div>
       )}

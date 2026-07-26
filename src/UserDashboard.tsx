@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Search, MapPin, Calendar, Heart, LogOut, ArrowRight, Filter, ChevronDown, Loader2, Settings, MessageSquare } from 'lucide-react';
+import { Search, MapPin, Calendar, Heart, LogOut, ArrowRight, Filter, ChevronDown, Loader2, Settings, MessageSquare, ChevronLeft, ChevronRight } from 'lucide-react';
 import { supabase } from './lib/supabase';
 import { UserTickets } from './UserTickets';
 import { UserSettings } from './UserSettings';
@@ -27,6 +27,17 @@ export function UserDashboard({ onLogout, onEventClick }: UserDashboardProps) {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [userProfile, setUserProfile] = useState<any>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    if (events.length === 0 || userView !== 'explore') return;
+    
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % Math.min(events.length, 5));
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, [events, userView]);
 
   useEffect(() => {
     async function fetchEvents() {
@@ -112,7 +123,7 @@ export function UserDashboard({ onLogout, onEventClick }: UserDashboardProps) {
           <div className="flex items-center gap-12">
             <div className="flex items-center gap-3">
               <img src="/logo.jpg" alt="AppEventos Logo" className="w-10 h-10 object-contain rounded-xl shadow-sm" />
-              <h1 className="text-2xl font-extrabold text-[#303392] tracking-widest hidden sm:block">
+              <h1 className="text-2xl font-extrabold text-[#303392] dark:text-blue-400 tracking-widest hidden sm:block">
                 EVENTOS
               </h1>
             </div>
@@ -120,25 +131,25 @@ export function UserDashboard({ onLogout, onEventClick }: UserDashboardProps) {
             <div className="hidden md:flex items-center gap-8 text-sm font-bold text-gray-500 dark:text-slate-400">
               <button 
                 onClick={() => setUserView('explore')}
-                className={`py-2 transition-colors ${userView === 'explore' ? 'text-[#303392] border-b-2 border-[#303392]' : 'hover:text-[#303392]'}`}
+                className={`py-2 transition-colors ${userView === 'explore' ? 'text-[#303392] dark:text-blue-400 border-b-2 border-[#303392] dark:border-blue-500' : 'hover:text-[#303392] dark:text-blue-400'}`}
               >
                 Explorar
               </button>
               <button 
                 onClick={() => setUserView('tickets')}
-                className={`py-2 transition-colors ${userView === 'tickets' ? 'text-[#303392] border-b-2 border-[#303392]' : 'hover:text-[#303392]'}`}
+                className={`py-2 transition-colors ${userView === 'tickets' ? 'text-[#303392] dark:text-blue-400 border-b-2 border-[#303392] dark:border-blue-500' : 'hover:text-[#303392] dark:text-blue-400'}`}
               >
                 Meus Ingressos
               </button>
               <button 
                 onClick={() => setUserView('favorites')}
-                className={`py-2 transition-colors ${userView === 'favorites' ? 'text-[#303392] border-b-2 border-[#303392]' : 'hover:text-[#303392]'}`}
+                className={`py-2 transition-colors ${userView === 'favorites' ? 'text-[#303392] dark:text-blue-400 border-b-2 border-[#303392] dark:border-blue-500' : 'hover:text-[#303392] dark:text-blue-400'}`}
               >
                 Favoritos
               </button>
               <button 
                 onClick={() => setUserView('community')}
-                className={`py-2 transition-colors flex items-center gap-1 ${userView === 'community' ? 'text-[#303392] border-b-2 border-[#303392]' : 'hover:text-[#303392]'}`}
+                className={`py-2 transition-colors flex items-center gap-1 ${userView === 'community' ? 'text-[#303392] dark:text-blue-400 border-b-2 border-[#303392] dark:border-blue-500' : 'hover:text-[#303392] dark:text-blue-400'}`}
               >
                 <MessageSquare className="w-4 h-4" />
                 Comunidade
@@ -155,17 +166,17 @@ export function UserDashboard({ onLogout, onEventClick }: UserDashboardProps) {
               onClick={() => setUserView('settings')}
               className="flex items-center gap-3 border-l border-gray-200 dark:border-slate-700 pl-6 cursor-pointer group"
             >
-              <div className="w-10 h-10 rounded-full border-2 border-[#303392] overflow-hidden flex items-center justify-center bg-gray-100">
+              <div className="w-10 h-10 rounded-full border-2 border-[#303392] dark:border-blue-500 overflow-hidden flex items-center justify-center bg-gray-100">
                 {userProfile?.avatarUrl ? (
                   <img src={userProfile.avatarUrl} alt="Perfil" className="w-full h-full object-cover" />
                 ) : (
-                  <span className="text-[#303392] font-bold text-sm">
+                  <span className="text-[#303392] dark:text-blue-400 font-bold text-sm">
                     {userProfile?.name ? userProfile.name.charAt(0).toUpperCase() : 'U'}
                   </span>
                 )}
               </div>
-              <div className="hidden lg:block text-sm group-hover:text-[#303392] transition-colors">
-                <p className="font-bold text-gray-900 dark:text-white group-hover:text-[#303392]">{userProfile?.name || 'Usuário'}</p>
+              <div className="hidden lg:block text-sm group-hover:text-[#303392] dark:text-blue-400 transition-colors">
+                <p className="font-bold text-gray-900 dark:text-white group-hover:text-[#303392] dark:text-blue-400">{userProfile?.name || 'Usuário'}</p>
                 <p className="text-gray-500 dark:text-slate-400 text-xs flex items-center gap-1"><Settings className="w-3 h-3"/> Editar Perfil</p>
               </div>
             </div>
@@ -177,37 +188,76 @@ export function UserDashboard({ onLogout, onEventClick }: UserDashboardProps) {
         <main className="max-w-[1400px] mx-auto px-6 mt-8">
           
           {userView === 'explore' && (
-          <section className="relative w-full h-[400px] rounded-[32px] overflow-hidden shadow-2xl mb-16 group cursor-pointer">
-          <div className="absolute inset-0">
-            <img 
-              src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1600&q=80" 
-              alt="Evento Destaque" 
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
-          </div>
-          
-          <div className="absolute inset-0 flex flex-col justify-center p-12 lg:p-20 text-white w-full lg:w-2/3">
-            <span className="inline-block px-4 py-1.5 bg-[#E31E24] text-white font-bold text-sm rounded-full mb-6 w-max uppercase tracking-wider">
-              Destaque da Semana
-            </span>
-            <h2 className="text-4xl lg:text-6xl font-extrabold mb-4 leading-tight">
-              Festival Global de Inovação 2026
-            </h2>
-            <p className="text-lg lg:text-xl text-gray-200 mb-8 max-w-xl font-medium">
-              Junte-se às mentes mais brilhantes do mundo para três dias de palestras, networking e tecnologia do futuro.
-            </p>
-            <div className="flex items-center gap-4">
-              <button className="px-8 py-4 bg-white dark:bg-slate-900 text-[#303392] font-extrabold rounded-2xl hover:bg-gray-100 transition-colors flex items-center gap-2 shadow-lg">
-                GARANTIR INGRESSO
-                <ArrowRight className="w-5 h-5" />
-              </button>
-              <button className="p-4 bg-white dark:bg-slate-900/20 backdrop-blur-md rounded-2xl hover:bg-white dark:bg-slate-900/30 transition-colors border border-white/30">
-                <Heart className="w-6 h-6 text-white" />
-              </button>
-            </div>
-          </div>
-        </section>
+            events.length > 0 ? (() => {
+            const featuredEvents = events.slice(0, 5);
+            const slideEvent = featuredEvents[currentSlide];
+            
+            return (
+              <section className="relative w-full h-[400px] rounded-[32px] overflow-hidden shadow-2xl mb-16 group">
+                <div className="absolute inset-0 transition-opacity duration-1000">
+                  <img 
+                    key={slideEvent.id}
+                    src={slideEvent.imageUrl} 
+                    alt={slideEvent.title} 
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent"></div>
+                </div>
+                
+                <div className="absolute inset-0 flex flex-col justify-center p-8 sm:p-12 lg:p-20 text-white w-full lg:w-2/3 z-10 animate-fade-in-up" key={`content-${slideEvent.id}`}>
+                  <span className="inline-block px-4 py-1.5 bg-[#E31E24] text-white font-bold text-xs sm:text-sm rounded-full mb-4 sm:mb-6 w-max uppercase tracking-wider">
+                    Destaque da Semana
+                  </span>
+                  <h2 className="text-3xl sm:text-4xl lg:text-6xl font-extrabold mb-2 sm:mb-4 leading-tight line-clamp-2 text-white shadow-sm">
+                    {slideEvent.title}
+                  </h2>
+                  <p className="text-base sm:text-lg lg:text-xl text-gray-200 mb-6 sm:mb-8 max-w-xl font-medium line-clamp-2">
+                    {slideEvent.date} • {slideEvent.location}
+                  </p>
+                  <div className="flex items-center gap-4">
+                    <button 
+                      onClick={() => onEventClick(slideEvent.id)}
+                      className="px-6 py-3 sm:px-8 sm:py-4 bg-white dark:bg-slate-900 text-[#303392] dark:text-blue-400 font-extrabold rounded-2xl hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors flex items-center gap-2 shadow-lg text-sm sm:text-base"
+                    >
+                      GARANTIR INGRESSO
+                      <ArrowRight className="w-5 h-5" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Carousel Controls */}
+                <div className="absolute bottom-6 sm:bottom-8 right-6 sm:right-8 flex gap-3 z-20">
+                  <button 
+                    onClick={() => setCurrentSlide((prev) => (prev === 0 ? featuredEvents.length - 1 : prev - 1))}
+                    className="p-2 sm:p-3 bg-white/10 backdrop-blur-md rounded-full hover:bg-white/30 transition-colors border border-white/30 text-white"
+                  >
+                    <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+                  </button>
+                  <button 
+                    onClick={() => setCurrentSlide((prev) => (prev + 1) % featuredEvents.length)}
+                    className="p-2 sm:p-3 bg-white/10 backdrop-blur-md rounded-full hover:bg-white/30 transition-colors border border-white/30 text-white"
+                  >
+                    <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                  </button>
+                </div>
+
+                {/* Carousel Indicators */}
+                <div className="absolute bottom-6 sm:bottom-8 left-8 sm:left-12 lg:left-20 flex gap-2 z-20">
+                  {featuredEvents.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setCurrentSlide(idx)}
+                      className={`h-2 rounded-full transition-all duration-300 ${idx === currentSlide ? 'w-8 bg-[#E31E24]' : 'w-2 bg-white/50 hover:bg-white'}`}
+                    />
+                  ))}
+                </div>
+              </section>
+            );
+          })() : (
+            <section className="relative w-full h-[400px] rounded-[32px] overflow-hidden shadow-2xl mb-16 bg-gray-100 dark:bg-slate-800/50 animate-pulse flex items-center justify-center">
+              <Loader2 className="w-10 h-10 text-gray-400 animate-spin" />
+            </section>
+          )
         )}
 
         {/* Barra de Busca e Filtros Avançados */}
@@ -227,21 +277,21 @@ export function UserDashboard({ onLogout, onEventClick }: UserDashboardProps) {
           <div className="hidden lg:block w-px h-10 bg-gray-200"></div>
           
           <div className="flex items-center gap-4 w-full lg:w-auto">
-            <button className="flex-1 lg:flex-none flex items-center justify-between gap-2 px-6 py-3 bg-[#F8FAFC] dark:bg-slate-950 hover:bg-gray-100 border border-gray-200 dark:border-slate-700 rounded-xl font-bold text-gray-600 dark:text-slate-400 transition-colors">
+            <button className="flex-1 lg:flex-none flex items-center justify-between gap-2 px-6 py-3 bg-[#F8FAFC] dark:bg-slate-950 hover:bg-gray-100 dark:hover:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl font-bold text-gray-600 dark:text-slate-400 transition-colors">
               <div className="flex items-center gap-2">
-                <Calendar className="w-5 h-5 text-[#303392]" />
+                <Calendar className="w-5 h-5 text-[#303392] dark:text-blue-400" />
                 <span>Qualquer Data</span>
               </div>
               <ChevronDown className="w-4 h-4 ml-4" />
             </button>
-            <button className="flex-1 lg:flex-none flex items-center justify-between gap-2 px-6 py-3 bg-[#F8FAFC] dark:bg-slate-950 hover:bg-gray-100 border border-gray-200 dark:border-slate-700 rounded-xl font-bold text-gray-600 dark:text-slate-400 transition-colors">
+            <button className="flex-1 lg:flex-none flex items-center justify-between gap-2 px-6 py-3 bg-[#F8FAFC] dark:bg-slate-950 hover:bg-gray-100 dark:hover:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl font-bold text-gray-600 dark:text-slate-400 transition-colors">
               <div className="flex items-center gap-2">
-                <MapPin className="w-5 h-5 text-[#303392]" />
+                <MapPin className="w-5 h-5 text-[#303392] dark:text-blue-400" />
                 <span>Local</span>
               </div>
               <ChevronDown className="w-4 h-4 ml-4" />
             </button>
-            <button className="p-3 bg-[#303392]/5 hover:bg-[#303392]/10 text-[#303392] rounded-xl transition-colors">
+            <button className="p-3 bg-[#303392]/5 dark:bg-blue-900/20 hover:bg-[#303392]/10 dark:bg-blue-900/30 text-[#303392] dark:text-blue-400 rounded-xl transition-colors">
               <Filter className="w-6 h-6" />
             </button>
           </div>
@@ -259,7 +309,7 @@ export function UserDashboard({ onLogout, onEventClick }: UserDashboardProps) {
 
         {loading ? (
           <div className="flex justify-center p-12">
-            <Loader2 className="w-10 h-10 animate-spin text-[#303392]" />
+            <Loader2 className="w-10 h-10 animate-spin text-[#303392] dark:text-blue-400" />
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
@@ -271,7 +321,7 @@ export function UserDashboard({ onLogout, onEventClick }: UserDashboardProps) {
                 <img src={event.imageUrl} alt={event.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 <div className="absolute top-4 left-4 flex gap-2">
                   <div className="bg-white dark:bg-slate-900/90 backdrop-blur-md px-4 py-2 rounded-xl shadow-sm">
-                    <span className="text-xs font-extrabold text-[#303392] uppercase tracking-wider">{event.type}</span>
+                    <span className="text-xs font-extrabold text-[#303392] dark:text-blue-400 uppercase tracking-wider">{event.type}</span>
                   </div>
                   {event.status === 'encerrado' && (
                     <div className="bg-gray-900/90 backdrop-blur-md px-4 py-2 rounded-xl shadow-sm">
@@ -296,7 +346,7 @@ export function UserDashboard({ onLogout, onEventClick }: UserDashboardProps) {
               
               {/* Detalhes do Evento */}
               <div className="p-8 flex flex-col flex-1">
-                <h4 className="text-xl font-extrabold text-gray-900 dark:text-white mb-4 line-clamp-2 leading-tight group-hover:text-[#303392] transition-colors">{event.title}</h4>
+                <h4 className="text-xl font-extrabold text-gray-900 dark:text-white mb-4 line-clamp-2 leading-tight group-hover:text-[#303392] dark:text-blue-400 transition-colors">{event.title}</h4>
                 
                 <div className="space-y-3 mb-8 flex-1">
                   <div className="flex items-center gap-3 text-gray-500 dark:text-slate-400">
