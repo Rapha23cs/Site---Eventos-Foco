@@ -1,15 +1,12 @@
 import { useState, useEffect } from 'react';
 import { ArrowLeft, Calendar, Clock, MapPin, Users, Ticket, Tag, Loader2, CheckCircle2, Star, Send } from 'lucide-react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from './lib/supabase';
 import { useToast } from './components/Toast';
 
-interface EventDetailsProps {
-  eventId: string | number;
-  onBack: () => void;
-  onProceedToPayment?: () => void;
-}
-
-export function EventDetails({ eventId, onBack, onProceedToPayment }: EventDetailsProps) {
+export function EventDetails() {
+  const { id: eventId } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const toast = useToast();
   const [event, setEvent] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -121,8 +118,8 @@ export function EventDetails({ eventId, onBack, onProceedToPayment }: EventDetai
       }
 
       // Se o evento for pago e a função onProceedToPayment foi passada, redireciona para o checkout
-      if (event.price > 0 && onProceedToPayment) {
-        onProceedToPayment();
+      if (event.price > 0) {
+        navigate(`/checkout/${eventId}`);
         return;
       }
 
@@ -192,8 +189,8 @@ export function EventDetails({ eventId, onBack, onProceedToPayment }: EventDetai
     return (
       <div className="min-h-screen bg-[#F8FAFC] dark:bg-slate-950 flex flex-col items-center justify-center p-6">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Evento não encontrado</h2>
-        <button onClick={onBack} className="text-[#303392] dark:text-blue-400 font-bold flex items-center gap-2 hover:underline">
-          <ArrowLeft className="w-5 h-5" /> Voltar ao Painel
+        <button onClick={() => navigate(-1)} className="text-[#303392] dark:text-blue-400 font-bold flex items-center gap-2 hover:underline">
+          <ArrowLeft className="w-5 h-5" /> Voltar
         </button>
       </div>
     );
@@ -203,7 +200,7 @@ export function EventDetails({ eventId, onBack, onProceedToPayment }: EventDetai
     <div className="min-h-screen bg-[#F8FAFC] dark:bg-slate-950 font-sans pb-24">
       {/* Botão de Voltar Flutuante */}
       <button 
-        onClick={onBack}
+        onClick={() => navigate(-1)}
         className="fixed top-6 left-6 z-50 p-3 bg-white dark:bg-slate-900 text-[#303392] dark:text-blue-400 shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:bg-gray-50 dark:hover:bg-slate-800/50 dark:bg-slate-800/50 rounded-full transition-all group flex items-center gap-2 pr-5"
       >
         <ArrowLeft className="w-6 h-6" />
@@ -455,7 +452,7 @@ export function EventDetails({ eventId, onBack, onProceedToPayment }: EventDetai
                   <p className="font-extrabold text-lg text-emerald-950">INSCRITO NO EVENTO</p>
                   <p className="text-sm mt-1 font-medium text-emerald-600">Sua vaga está garantida neste evento.</p>
                   <button 
-                    onClick={onBack}
+                    onClick={() => navigate(-1)}
                     className="mt-6 w-full py-3 bg-emerald-600 text-white rounded-xl font-bold hover:bg-emerald-700 transition-colors shadow-sm"
                   >
                     Voltar para Meus Ingressos

@@ -4,6 +4,7 @@ import {
   LayoutDashboard, CalendarDays, Settings, Bell, Search, 
   ChevronRight, ArrowUpRight, ArrowDownRight, Loader2
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { supabase } from './lib/supabase';
 import { createClient } from '@supabase/supabase-js';
 import { AdminEventsList } from './AdminEventsList';
@@ -11,11 +12,8 @@ import { AdminCreateEvent } from './AdminCreateEvent';
 import { AdminEventAttendees } from './AdminEventAttendees';
 import { AdminSettings } from './AdminSettings';
 
-interface AdminDashboardProps {
-  onLogout: () => void;
-}
-
-export function AdminDashboard({ onLogout }: AdminDashboardProps) {
+export function AdminDashboard() {
+  const navigate = useNavigate();
   const [adminView, setAdminView] = useState<'overview' | 'events' | 'create_event' | 'attendees' | 'settings'>('overview');
   const [editingEventId, setEditingEventId] = useState<string | number | null>(null);
   const [selectedEventId, setSelectedEventId] = useState<string | number | null>(null);
@@ -163,7 +161,7 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
 
         <div className="p-4">
           <button 
-            onClick={onLogout}
+            onClick={() => navigate('/')}
             className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-white/10 hover:bg-white/20 text-white rounded-xl font-bold transition-colors"
           >
             <LogOut className="w-5 h-5" />

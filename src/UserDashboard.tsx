@@ -1,14 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Search, MapPin, Calendar, Heart, LogOut, ArrowRight, Filter, ChevronDown, Loader2, Settings, MessageSquare, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { supabase } from './lib/supabase';
 import { UserTickets } from './UserTickets';
 import { UserSettings } from './UserSettings';
 import { UserCommunity } from './UserCommunity';
-
-interface UserDashboardProps {
-  onLogout: () => void;
-  onEventClick: (eventId: string | number) => void;
-}
 
 interface Event {
   id: string | number;
@@ -22,7 +18,8 @@ interface Event {
   status?: string;
 }
 
-export function UserDashboard({ onLogout, onEventClick }: UserDashboardProps) {
+export function UserDashboard() {
+  const navigate = useNavigate();
   const [userView, setUserView] = useState<'explore' | 'tickets' | 'settings' | 'favorites' | 'community'>('explore');
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
@@ -158,7 +155,7 @@ export function UserDashboard({ onLogout, onEventClick }: UserDashboardProps) {
           </div>
           
           <div className="flex items-center gap-6">
-            <button onClick={onLogout} className="flex items-center gap-2 text-sm font-bold text-gray-500 dark:text-slate-400 hover:text-[#E31E24] transition-colors group">
+            <button onClick={() => navigate('/')} className="flex items-center gap-2 text-sm font-bold text-gray-500 dark:text-slate-400 hover:text-[#E31E24] transition-colors group">
               <LogOut className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
               <span className="hidden sm:inline">Sair</span>
             </button>
@@ -216,7 +213,7 @@ export function UserDashboard({ onLogout, onEventClick }: UserDashboardProps) {
                   </p>
                   <div className="flex items-center gap-4">
                     <button 
-                      onClick={() => onEventClick(slideEvent.id)}
+                      onClick={() => navigate(`/event/${slideEvent.id}`)}
                       className="px-6 py-3 sm:px-8 sm:py-4 bg-white dark:bg-slate-900 text-[#303392] dark:text-blue-400 font-extrabold rounded-2xl hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors flex items-center gap-2 shadow-lg text-sm sm:text-base"
                     >
                       GARANTIR INGRESSO
@@ -314,7 +311,7 @@ export function UserDashboard({ onLogout, onEventClick }: UserDashboardProps) {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {displayedEvents.map((event) => (
-            <div key={event.id} onClick={() => onEventClick(event.id)} className="bg-white dark:bg-slate-900 rounded-[24px] overflow-hidden border border-gray-100 dark:border-slate-800 group flex flex-col hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+            <div key={event.id} onClick={() => navigate(`/event/${event.id}`)} className="bg-white dark:bg-slate-900 rounded-[24px] overflow-hidden border border-gray-100 dark:border-slate-800 group flex flex-col hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 cursor-pointer">
               
               {/* Imagem do Evento */}
               <div className="relative h-60 w-full overflow-hidden">

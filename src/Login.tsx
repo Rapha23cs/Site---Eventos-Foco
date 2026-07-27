@@ -1,14 +1,10 @@
 import { useState } from 'react';
 import { ArrowLeft, Mail, Lock, Eye, EyeOff, ShieldCheck, Loader2, User } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { supabase } from './lib/supabase';
 
-interface LoginProps {
-  onBack: () => void;
-  onLoginUser: () => void;
-  onLoginAdmin: () => void;
-}
-
-export function Login({ onBack, onLoginUser, onLoginAdmin }: LoginProps) {
+export function Login() {
+  const navigate = useNavigate();
   const [isRegistering, setIsRegistering] = useState(false);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -112,9 +108,8 @@ export function Login({ onBack, onLoginUser, onLoginAdmin }: LoginProps) {
             }
           }
 
-          // Se o Supabase exigir confirmação de email, o session virá nulo
           if (data.session) {
-            onLoginUser();
+            navigate('/user');
           } else {
             setSuccessMsg('Conta criada! Verifique seu e-mail ou faça login.');
             setIsRegistering(false);
@@ -130,7 +125,7 @@ export function Login({ onBack, onLoginUser, onLoginAdmin }: LoginProps) {
         if (error) {
           setErrorMsg('E-mail ou senha inválidos.');
         } else {
-          onLoginUser();
+          navigate('/user');
         }
       }
     } catch (err) {
@@ -152,7 +147,7 @@ export function Login({ onBack, onLoginUser, onLoginAdmin }: LoginProps) {
     const correctPin = import.meta.env.VITE_ADMIN_PIN || '123456';
     if (pinInput === correctPin) {
       setShowPinModal(false);
-      onLoginAdmin();
+      navigate('/admin');
     } else {
       setPinError('PIN incorreto.');
     }
@@ -163,7 +158,7 @@ export function Login({ onBack, onLoginUser, onLoginAdmin }: LoginProps) {
       {/* Botão Voltar Absoluto */}
       <div className="absolute top-0 left-0 p-4 sm:p-6 z-20">
         <button 
-          onClick={onBack}
+          onClick={() => navigate('/')}
           className="p-3 text-[#303392] lg:text-white bg-white dark:bg-slate-900/20 lg:bg-black/20 hover:bg-black/10 lg:hover:bg-black/40 backdrop-blur-md rounded-full transition-colors flex items-center justify-center shadow-sm lg:shadow-none"
           aria-label="Voltar"
         >

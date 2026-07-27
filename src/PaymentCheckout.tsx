@@ -1,15 +1,12 @@
 import { useState, useEffect } from 'react';
 import { CreditCard, ArrowLeft, CheckCircle2, ShieldCheck, Loader2, QrCode } from 'lucide-react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from './lib/supabase';
 import { useToast } from './components/Toast';
 
-interface PaymentCheckoutProps {
-  eventId: string | number;
-  onBack: () => void;
-  onSuccess: () => void;
-}
-
-export function PaymentCheckout({ eventId, onBack, onSuccess }: PaymentCheckoutProps) {
+export function PaymentCheckout() {
+  const { id: eventId } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const toast = useToast();
   const [event, setEvent] = useState<any>(null);
   const [user, setUser] = useState<any>(null);
@@ -64,7 +61,7 @@ export function PaymentCheckout({ eventId, onBack, onSuccess }: PaymentCheckoutP
       toast.success('Pagamento Aprovado', 'Sua inscrição foi confirmada!');
       // Aguardar alguns segundos antes de voltar
       setTimeout(() => {
-        onSuccess();
+        navigate('/user');
       }, 3000);
     }
   };
@@ -106,7 +103,7 @@ export function PaymentCheckout({ eventId, onBack, onSuccess }: PaymentCheckoutP
         <div className="absolute top-0 right-0 w-96 h-96 bg-white dark:bg-slate-900/5 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2"></div>
         <div className="max-w-5xl mx-auto relative z-10">
           <button 
-            onClick={onBack}
+            onClick={() => navigate(-1)}
             className="flex items-center gap-2 text-white/80 hover:text-white font-bold transition-colors mb-8"
           >
             <ArrowLeft className="w-5 h-5" /> Voltar ao Evento
