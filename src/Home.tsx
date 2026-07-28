@@ -1,4 +1,4 @@
-import { Users, Ticket, ArrowRight, ShieldCheck, Sparkles, Smartphone, Play, Zap, Star, Phone, Mail, MapPin } from 'lucide-react';
+import { Users, Ticket, ArrowRight, ShieldCheck, Sparkles, Smartphone, Play, Zap, Star, Phone, Mail } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { AuthModal } from './components/AuthModal';
