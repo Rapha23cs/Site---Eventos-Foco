@@ -1,20 +1,25 @@
-import { useState } from 'react';
-import { Mail, Lock, Eye, EyeOff, Loader2, User, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Mail, Lock, Eye, EyeOff, Loader2, User, X, ShieldCheck, Building2, Briefcase } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import { useNavigate } from 'react-router-dom';
 
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSuccess: () => void;
   defaultToRegister?: boolean;
+  showAdminAccess?: boolean;
 }
 
-export function AuthModal({ isOpen, onClose, onSuccess, defaultToRegister = false }: AuthModalProps) {
+export function AuthModal({ isOpen, onClose, onSuccess, defaultToRegister = false, showAdminAccess = false }: AuthModalProps) {
+  const navigate = useNavigate();
   const [isRegistering, setIsRegistering] = useState(defaultToRegister);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const [fullName, setFullName] = useState('');
+  const [company, setCompany] = useState('');
+  const [role, setRole] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -22,6 +27,21 @@ export function AuthModal({ isOpen, onClose, onSuccess, defaultToRegister = fals
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
+
+  const [showPinModal, setShowPinModal] = useState(false);
+  const [pinInput, setPinInput] = useState('');
+  const [pinError, setPinError] = useState('');
+
+  useEffect(() => {
+    if (isOpen) {
+      setIsRegistering(defaultToRegister);
+      setIsForgotPassword(false);
+      setErrorMsg('');
+      setSuccessMsg('');
+      setShowPassword(false);
+      setLoading(false);
+    }
+  }, [isOpen, defaultToRegister]);
 
   if (!isOpen) return null;
 
@@ -50,6 +70,24 @@ export function AuthModal({ isOpen, onClose, onSuccess, defaultToRegister = fals
       setErrorMsg('Ocorreu um erro.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleAdminAccess = () => {
+    setPinError('');
+    setPinInput('');
+    setShowPinModal(true);
+  };
+
+  const verifyAdminPin = (e: React.FormEvent) => {
+    e.preventDefault();
+    const correctPin = import.meta.env.VITE_ADMIN_PIN || '123456';
+    if (pinInput === correctPin) {
+      setShowPinModal(false);
+      onClose();
+      navigate('/admin');
+    } else {
+      setPinError('PIN incorreto.');
     }
   };
 
@@ -85,6 +123,8 @@ export function AuthModal({ isOpen, onClose, onSuccess, defaultToRegister = fals
           options: {
             data: {
               full_name: fullName,
+              company: company,
+              role: role
             }
           }
         });
@@ -96,7 +136,9 @@ export function AuthModal({ isOpen, onClose, onSuccess, defaultToRegister = fals
             const { error: profileError } = await supabase.from('profiles').insert({
               id: data.user.id,
               full_name: fullName,
-              email: email
+              email: email,
+              company: company,
+              role: role
             });
             if (profileError) {
               console.warn("Aviso:", profileError);
@@ -214,19 +256,53 @@ export function AuthModal({ isOpen, onClose, onSuccess, defaultToRegister = fals
             <form className="space-y-5" onSubmit={handleSubmit}>
 
               {isRegistering && (
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 dark:text-slate-300 mb-2 ml-1">Nome Completo *</label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                      <User className="h-5 w-5 text-[#303392]/50" />
+                <div className="space-y-5">
+                  <div>
+                    <label className="block text-sm font-bold text-gray-700 dark:text-slate-300 mb-2 ml-1">Nome Completo *</label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <User className="h-5 w-5 text-[#303392]/50" />
+                      </div>
+                      <input
+                        type="text"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                        placeholder="Seu nome completo"
+                        className="w-full pl-11 pr-4 py-4 bg-[#F9FAFB] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] focus:ring-4 focus:ring-[#303392]/10 rounded-[16px] outline-none transition-all font-medium text-sm text-gray-800 dark:text-slate-200"
+                      />
                     </div>
-                    <input
-                      type="text"
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
-                      placeholder="Seu nome completo"
-                      className="w-full pl-11 pr-4 py-4 bg-[#F9FAFB] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] focus:ring-4 focus:ring-[#303392]/10 rounded-[16px] outline-none transition-all font-medium text-sm text-gray-800 dark:text-slate-200"
-                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-bold text-gray-700 dark:text-slate-300 mb-2 ml-1">Empresa</label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <Building2 className="h-5 w-5 text-[#303392]/50" />
+                      </div>
+                      <input
+                        type="text"
+                        value={company}
+                        onChange={(e) => setCompany(e.target.value)}
+                        placeholder="Nome da sua empresa"
+                        className="w-full pl-11 pr-4 py-4 bg-[#F9FAFB] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] focus:ring-4 focus:ring-[#303392]/10 rounded-[16px] outline-none transition-all font-medium text-sm text-gray-800 dark:text-slate-200"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-bold text-gray-700 dark:text-slate-300 mb-2 ml-1">Cargo</label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <Briefcase className="h-5 w-5 text-[#303392]/50" />
+                      </div>
+                      <input
+                        type="text"
+                        value={role}
+                        onChange={(e) => setRole(e.target.value)}
+                        placeholder="Seu cargo na empresa"
+                        className="w-full pl-11 pr-4 py-4 bg-[#F9FAFB] dark:bg-slate-950 border border-gray-200 dark:border-slate-700 focus:border-[#303392] focus:ring-4 focus:ring-[#303392]/10 rounded-[16px] outline-none transition-all font-medium text-sm text-gray-800 dark:text-slate-200"
+                      />
+                    </div>
                   </div>
                 </div>
               )}
@@ -314,7 +390,31 @@ export function AuthModal({ isOpen, onClose, onSuccess, defaultToRegister = fals
               </div>
             </form>
           )}
+
+          {showAdminAccess && (
+            <>
+              {/* Separador */}
+              <div className="mt-8 mb-8 flex items-center gap-4">
+                <div className="h-px bg-gray-200 dark:bg-slate-700 flex-1"></div>
+                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Acesso Restrito</span>
+                <div className="h-px bg-gray-200 dark:bg-slate-700 flex-1"></div>
+              </div>
+
+              {/* Acesso Administrativo */}
+              <div className="flex justify-center">
+                <button
+                  type="button"
+                  onClick={handleAdminAccess}
+                  className="flex items-center gap-2 px-6 py-3 rounded-[16px] border-2 border-gray-200 dark:border-slate-700 text-gray-500 dark:text-slate-400 hover:text-[#303392] hover:border-[#303392] hover:bg-[#303392]/5 font-bold text-sm transition-all"
+                >
+                  <ShieldCheck className="w-5 h-5" />
+                  Acesso Administrativo
+                </button>
+              </div>
+            </>
+          )}
         </div>
+
 
         {/* Modal Footer */}
         <div className="p-6 border-t border-gray-100 dark:border-slate-800 shrink-0 bg-gray-50 dark:bg-slate-800/30 text-center text-sm">
@@ -332,6 +432,52 @@ export function AuthModal({ isOpen, onClose, onSuccess, defaultToRegister = fals
           </button>
         </div>
       </div>
+
+      {/* Modal de PIN do Admin */}
+      {showPinModal && (
+        <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+          <div className="bg-white dark:bg-slate-900 rounded-[32px] p-8 max-w-sm w-full shadow-2xl text-center">
+            <div className="w-16 h-16 bg-[#303392]/10 text-[#303392] rounded-full flex items-center justify-center mx-auto mb-4">
+              <ShieldCheck className="w-8 h-8" />
+            </div>
+            <h3 className="text-2xl font-extrabold text-gray-900 dark:text-white mb-2">Acesso Restrito</h3>
+            <p className="text-gray-500 dark:text-slate-400 text-sm mb-6">Digite o PIN de administrador para acessar o painel.</p>
+
+            <form onSubmit={verifyAdminPin} className="space-y-4">
+              <div>
+                <input
+                  type="password"
+                  value={pinInput}
+                  onChange={(e) => setPinInput(e.target.value)}
+                  placeholder="••••••"
+                  className="w-full px-4 py-4 text-center tracking-[0.5em] text-2xl font-black bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-xl outline-none focus:border-[#303392] transition-colors"
+                  autoFocus
+                />
+              </div>
+
+              {pinError && (
+                <p className="text-[#E31E24] font-bold text-sm">{pinError}</p>
+              )}
+
+              <div className="pt-2 flex flex-col gap-3">
+                <button
+                  type="submit"
+                  className="w-full bg-[#303392] hover:bg-[#1E205A] text-white py-3 rounded-xl font-bold tracking-wide transition-colors"
+                >
+                  ACESSAR PAINEL
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowPinModal(false)}
+                  className="w-full text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:text-white font-bold py-2 transition-colors text-sm"
+                >
+                  CANCELAR
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

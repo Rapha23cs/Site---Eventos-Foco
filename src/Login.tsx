@@ -178,7 +178,7 @@ export function Login() {
           <div className="bg-white p-6 rounded-[32px] shadow-2xl mb-10 transform hover:scale-105 transition-transform duration-500">
             <img 
               src="/logo1.png" 
-              alt="AppEventos Logo" 
+              alt="FOCO Eventos Logo" 
               className="h-40 w-auto object-contain rounded-2xl" 
             />
           </div>
@@ -194,7 +194,7 @@ export function Login() {
           <div className="lg:hidden flex justify-center mb-8">
             <img 
               src="/logo1.png" 
-              alt="AppEventos Logo" 
+              alt="FOCO Eventos Logo" 
               className="h-28 object-contain rounded-2xl shadow-sm border border-gray-100 dark:border-slate-800" 
             />
           </div>

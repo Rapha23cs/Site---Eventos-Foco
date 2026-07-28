@@ -173,7 +173,7 @@ export class EmailService {
               <p style="margin: 5px 0 0; color: #6b7280; font-size: 14px;">Data de Emissão</p>
             </div>
             <div style="text-align: center;">
-              <p style="margin: 0; font-weight: bold; color: #303392; font-size: 18px;">AppEventos / Foco</p>
+              <p style="margin: 0; font-weight: bold; color: #303392; font-size: 18px;">FOCO Eventos</p>
               <p style="margin: 5px 0 0; color: #6b7280; font-size: 14px;">Organização</p>
             </div>
           </div>

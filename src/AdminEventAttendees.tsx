@@ -170,7 +170,7 @@ export function AdminEventAttendees({ eventId, onBack }: AdminEventAttendeesProp
           errorMsg.toLowerCase().includes('registered')
         ) {
           throw new Error(
-            'Já existe um usuário cadastrado no AppEventos com este e-mail. Como ele já tem conta, ele pode fazer login e se inscrever no evento.'
+            'Já existe um usuário cadastrado no FOCO Eventos com este e-mail. Como ele já tem conta, ele pode fazer login e se inscrever no evento.'
           );
         }
         throw authErr;

@@ -232,7 +232,7 @@ export function UserCommunity() {
               <X className="w-5 h-5" />
             </button>
             <h3 className="text-2xl font-extrabold text-gray-900 dark:text-white mb-2">Enviar Feedback</h3>
-            <p className="text-gray-500 dark:text-slate-400 text-sm mb-6">Como podemos melhorar sua experiência com o AppEventos?</p>
+            <p className="text-gray-500 dark:text-slate-400 text-sm mb-6">Como podemos melhorar sua experiência com o FOCO Eventos?</p>
             
             <form onSubmit={handleSubmitFeedback} className="space-y-4">
               <div>

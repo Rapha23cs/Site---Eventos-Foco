@@ -119,9 +119,12 @@ export function UserDashboard() {
         <div className="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-12">
             <div className="flex items-center gap-3">
-              <img src="/logo.jpg" alt="AppEventos Logo" className="w-10 h-10 object-contain rounded-xl shadow-sm" />
-              <h1 className="text-2xl font-extrabold text-[#303392] dark:text-blue-400 tracking-widest hidden sm:block">
-                EVENTOS
+              <div className="w-10 h-10 bg-white rounded-full p-1.5 flex items-center justify-center shadow-sm border border-gray-100">
+                <img src="/logo.jpg" alt="FOCO Eventos Logo" className="w-full h-full object-contain rounded-full" />
+              </div>
+              <h1 className="text-2xl font-extrabold tracking-tight hidden sm:block">
+                <span className="text-[#E31E24]">FOCO</span>{' '}
+                <span className="text-[#303392] dark:text-blue-400">Eventos</span>
               </h1>
             </div>
             

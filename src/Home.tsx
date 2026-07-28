@@ -2,11 +2,13 @@ import { Users, Ticket, ArrowRight, ShieldCheck, Sparkles, Smartphone, Play, Zap
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { AuthModal } from './components/AuthModal';
+import { AppDownloadModal } from './components/AppDownloadModal';
 
 export function Home() {
   const navigate = useNavigate();
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authModeRegister, setAuthModeRegister] = useState(false);
+  const [showAppModal, setShowAppModal] = useState(false);
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] dark:bg-slate-950 text-[#1A1A1A] dark:text-white font-sans selection:bg-[#E31E24] selection:text-white overflow-x-hidden relative">
@@ -14,7 +16,12 @@ export function Home() {
         isOpen={showAuthModal} 
         onClose={() => setShowAuthModal(false)} 
         onSuccess={() => navigate('/user')} 
-        defaultToRegister={authModeRegister} 
+        defaultToRegister={authModeRegister}
+        showAdminAccess={true}
+      />
+      <AppDownloadModal 
+        isOpen={showAppModal} 
+        onClose={() => setShowAppModal(false)} 
       />
 
       {/* Background Mesh Gradients & Video */}
@@ -48,17 +55,20 @@ export function Home() {
       {/* Modern Floating Navbar */}
       <nav className="fixed w-full z-50 top-6 px-6">
         <div className="max-w-5xl mx-auto h-16 bg-white dark:bg-slate-900/70 backdrop-blur-xl rounded-full border border-white/50 shadow-[0_8px_32px_rgba(0,0,0,0.04)] flex items-center justify-between px-2 pr-4">
-          <div className="flex items-center gap-3 pl-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-[#303392] to-[#1E205A] rounded-full p-2 flex items-center justify-center shadow-inner">
-              <img src="/logo.jpg" alt="Logo" className="w-full h-full object-contain rounded-full mix-blend-screen" />
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 bg-white rounded-full p-1.5 flex items-center justify-center shadow-md">
+              <img src="/logo.jpg" alt="Logo" className="w-full h-full object-contain rounded-full" />
             </div>
-            <span className="text-xl font-extrabold tracking-tight text-[#303392] dark:text-blue-400">AppEventos</span>
+            <span className="font-extrabold text-2xl tracking-tight">
+              <span className="text-[#E31E24]">FOCO</span>{' '}
+              <span className="text-[#303392] dark:text-blue-400">Eventos</span>
+            </span>
           </div>
 
           <div className="hidden md:flex items-center gap-8 text-sm font-bold text-gray-500 dark:text-slate-400">
             <a href="#eventos" className="hover:text-[#303392] dark:text-blue-400 transition-colors">Eventos</a>
             <a href="#comunidade" className="hover:text-[#303392] dark:text-blue-400 transition-colors">Comunidade</a>
-            <a href="#sobre" className="hover:text-[#303392] dark:text-blue-400 transition-colors">App</a>
+            <button onClick={() => setShowAppModal(true)} className="hover:text-[#303392] dark:text-blue-400 transition-colors">App</button>
           </div>
 
           <div className="flex items-center gap-3">
@@ -120,7 +130,7 @@ export function Home() {
                   <ArrowRight className="w-5 h-5" />
                 </button>
                 <button
-                  onClick={() => alert('App em desenvolvimento. Baixe em breve nas lojas!')}
+                  onClick={() => setShowAppModal(true)}
                   className="w-full sm:w-auto px-8 py-4 bg-white dark:bg-slate-900/50 backdrop-blur-md border-2 border-transparent hover:border-gray-200 dark:border-slate-700 rounded-full text-gray-800 dark:text-slate-200 font-bold text-lg hover:bg-white dark:bg-slate-900 transition-all flex items-center justify-center gap-2 shadow-sm"
                 >
                   <Smartphone className="w-5 h-5" />
@@ -138,36 +148,36 @@ export function Home() {
 
             {/* Right Content - Abstract UI Mockup */}
             <div className="flex-1 relative w-full max-w-lg lg:max-w-none">
-              <div className="relative w-full aspect-square rounded-[40px] bg-gradient-to-br from-[#303392]/5 to-[#E31E24]/5 border border-white/60 shadow-2xl backdrop-blur-3xl overflow-hidden flex items-center justify-center group">
+              <div className="relative w-full aspect-square rounded-[40px] bg-gradient-to-br from-[#303392]/5 to-[#E31E24]/5 border border-white/60 dark:border-slate-800 shadow-2xl backdrop-blur-3xl overflow-hidden flex items-center justify-center group">
 
                 {/* Floating Elements mimicking App UI */}
-                <div className="absolute top-10 left-10 w-64 bg-white dark:bg-slate-900/90 backdrop-blur-xl p-5 rounded-3xl shadow-[0_20px_40px_rgba(0,0,0,0.08)] transform -rotate-6 group-hover:rotate-0 transition-transform duration-700">
+                <div className="absolute top-10 left-10 w-64 bg-white dark:bg-slate-900/90 backdrop-blur-xl p-5 rounded-3xl shadow-[0_20px_40px_rgba(0,0,0,0.08)] transform -rotate-6 group-hover:rotate-0 transition-transform duration-700 border border-transparent dark:border-slate-800">
                   <div className="flex gap-4 items-center mb-4">
-                    <div className="w-12 h-12 bg-gray-100 rounded-2xl"></div>
+                    <div className="w-12 h-12 bg-gray-100 dark:bg-slate-800 rounded-2xl"></div>
                     <div>
-                      <div className="w-24 h-4 bg-gray-200 rounded-full mb-2"></div>
-                      <div className="w-16 h-3 bg-gray-100 rounded-full"></div>
+                      <div className="w-24 h-4 bg-gray-200 dark:bg-slate-700 rounded-full mb-2"></div>
+                      <div className="w-16 h-3 bg-gray-100 dark:bg-slate-800 rounded-full"></div>
                     </div>
                   </div>
-                  <div className="w-full h-32 bg-gradient-to-br from-gray-100 to-gray-50 rounded-2xl mb-4"></div>
+                  <div className="w-full h-32 bg-gradient-to-br from-gray-100 to-gray-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl mb-4"></div>
                   <div className="flex justify-between items-center">
-                    <div className="w-16 h-6 bg-[#E31E24]/10 rounded-full"></div>
-                    <div className="w-8 h-8 bg-gray-100 rounded-full"></div>
+                    <div className="w-16 h-6 bg-[#E31E24]/10 dark:bg-[#E31E24]/20 rounded-full"></div>
+                    <div className="w-8 h-8 bg-gray-100 dark:bg-slate-800 rounded-full"></div>
                   </div>
                 </div>
 
-                <div className="absolute bottom-10 right-10 w-72 bg-white dark:bg-slate-900/90 backdrop-blur-xl p-5 rounded-3xl shadow-[0_20px_40px_rgba(0,0,0,0.12)] transform rotate-6 group-hover:rotate-0 transition-transform duration-700 delay-75 border border-white">
+                <div className="absolute bottom-10 right-10 w-72 bg-white dark:bg-slate-900/90 backdrop-blur-xl p-5 rounded-3xl shadow-[0_20px_40px_rgba(0,0,0,0.12)] transform rotate-6 group-hover:rotate-0 transition-transform duration-700 delay-75 border border-white dark:border-slate-800">
                   <div className="flex items-center justify-between mb-4">
-                    <div className="w-20 h-4 bg-emerald-100 rounded-full"></div>
+                    <div className="w-20 h-4 bg-emerald-100 dark:bg-emerald-500/20 rounded-full"></div>
                     <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
                   </div>
                   <div className="w-full h-24 bg-[#303392]/5 dark:bg-blue-900/20 rounded-2xl mb-4 flex items-center justify-center">
                     <Ticket className="w-8 h-8 text-[#303392] dark:text-blue-400/30" />
                   </div>
-                  <div className="w-3/4 h-3 bg-gray-200 rounded-full"></div>
+                  <div className="w-3/4 h-3 bg-gray-200 dark:bg-slate-700 rounded-full"></div>
                 </div>
 
-                <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent pointer-events-none"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-white/20 dark:from-slate-900/40 to-transparent pointer-events-none"></div>
               </div>
             </div>
 
@@ -311,8 +321,13 @@ export function Home() {
             {/* Branding */}
             <div className="md:col-span-4 lg:col-span-4 flex flex-col gap-6">
               <div className="flex items-center gap-3">
-                <img src="/logo.jpg" alt="Logo" className="w-10 h-10 object-contain rounded-xl" />
-                <span className="font-extrabold text-[#303392] dark:text-blue-400 text-2xl tracking-tight">AppEventos</span>
+                <div className="w-10 h-10 bg-white rounded-full p-1.5 flex items-center justify-center shadow-sm border border-gray-100">
+                  <img src="/logo.jpg" alt="Logo" className="w-full h-full object-contain rounded-full" />
+                </div>
+                <span className="font-extrabold text-2xl tracking-tight">
+                  <span className="text-[#E31E24]">FOCO</span>{' '}
+                  <span className="text-[#303392] dark:text-blue-400">Eventos</span>
+                </span>
               </div>
               <p className="text-gray-500 dark:text-slate-400 font-medium text-sm leading-relaxed max-w-xs">
                 O seu app de ingressos e eventos. Conecte-se aos momentos que importam com segurança e praticidade.
@@ -320,7 +335,7 @@ export function Home() {
             </div>
 
             {/* Organização */}
-            <div className="md:col-span-4 lg:col-span-4">
+            <div className="md:col-span-3 lg:col-span-3">
               <h4 className="text-gray-900 dark:text-white font-bold text-lg mb-6">Organização</h4>
               <ul className="space-y-4">
                 <li className="text-gray-600 dark:text-slate-400 font-medium text-sm">
@@ -335,8 +350,18 @@ export function Home() {
               </ul>
             </div>
 
+            {/* Plataforma */}
+            <div className="md:col-span-2 lg:col-span-2">
+              <h4 className="text-gray-900 dark:text-white font-bold text-lg mb-6">Plataforma</h4>
+              <div className="flex flex-col gap-4">
+                <a href="#eventos" className="text-gray-500 dark:text-slate-400 hover:text-[#303392] dark:hover:text-blue-400 font-medium transition-colors text-sm">Explorar Eventos</a>
+                <button onClick={() => setShowAppModal(true)} className="text-gray-500 dark:text-slate-400 hover:text-[#303392] dark:hover:text-blue-400 font-medium transition-colors text-sm text-left w-fit">Aplicativo</button>
+                <a href="#comunidade" className="text-gray-500 dark:text-slate-400 hover:text-[#303392] dark:hover:text-blue-400 font-medium transition-colors text-sm">Comunidade</a>
+              </div>
+            </div>
+
             {/* Contato */}
-            <div className="md:col-span-4 lg:col-span-4">
+            <div className="md:col-span-3 lg:col-span-3">
               <h4 className="text-gray-900 dark:text-white font-bold text-lg mb-6">Contato</h4>
               <ul className="space-y-4">
                 <li className="flex items-center gap-3 text-gray-600 dark:text-slate-400">
@@ -347,17 +372,13 @@ export function Home() {
                   <Mail className="w-5 h-5 text-[#E31E24] shrink-0" />
                   <span className="font-medium text-sm truncate">edilsonlira@fococonsultancy.com.br</span>
                 </li>
-                <li className="flex items-center gap-3 text-gray-600 dark:text-slate-400">
-                  <MapPin className="w-5 h-5 text-[#E31E24] shrink-0" />
-                  <span className="font-medium text-sm">Hotel Princesa Louçã, Belém — PA</span>
-                </li>
               </ul>
             </div>
           </div>
 
           <div className="pt-8 border-t border-gray-100 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-sm font-medium text-gray-500 dark:text-slate-500">
-              © {new Date().getFullYear()} AppEventos. Todos os direitos reservados.
+              © {new Date().getFullYear()} FOCO Eventos. Todos os direitos reservados.
             </div>
             <div className="flex gap-4 text-sm font-bold text-gray-400 dark:text-slate-600">
               <a href="#" className="hover:text-[#303392] dark:hover:text-blue-400 transition-colors">Termos</a>
