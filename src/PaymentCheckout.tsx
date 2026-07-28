@@ -3,6 +3,7 @@ import { CreditCard, ArrowLeft, CheckCircle2, ShieldCheck, Loader2, QrCode } fro
 import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from './lib/supabase';
 import { useToast } from './components/Toast';
+import { AuthModal } from './components/AuthModal';
 
 export function PaymentCheckout() {
   const { id: eventId } = useParams<{ id: string }>();
@@ -14,6 +15,7 @@ export function PaymentCheckout() {
   const [processing, setProcessing] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<'credit_card' | 'pix'>('credit_card');
   const [isSuccess, setIsSuccess] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   useEffect(() => {
     async function loadCheckoutData() {
@@ -37,7 +39,12 @@ export function PaymentCheckout() {
   }, [eventId]);
 
   const handlePayment = async () => {
-    if (!user || !event) return;
+    if (!event) return;
+    
+    if (!user) {
+      setShowAuthModal(true);
+      return;
+    }
     
     setProcessing(true);
 
@@ -99,6 +106,18 @@ export function PaymentCheckout() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] dark:bg-slate-950 pb-20">
+      <AuthModal 
+        isOpen={showAuthModal} 
+        onClose={() => setShowAuthModal(false)} 
+        onSuccess={async () => {
+          setShowAuthModal(false);
+          const { data: { user: currentUser } } = await supabase.auth.getUser();
+          if (currentUser) {
+            setUser(currentUser);
+          }
+        }} 
+        defaultToRegister={true}
+      />
       <div className="bg-[#303392] pt-8 pb-32 px-6 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-white dark:bg-slate-900/5 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2"></div>
         <div className="max-w-5xl mx-auto relative z-10">

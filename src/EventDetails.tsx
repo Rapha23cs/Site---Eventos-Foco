@@ -3,6 +3,7 @@ import { ArrowLeft, Calendar, Clock, MapPin, Users, Ticket, Tag, Loader2, CheckC
 import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from './lib/supabase';
 import { useToast } from './components/Toast';
+import { AuthModal } from './components/AuthModal';
 
 export function EventDetails() {
   const { id: eventId } = useParams<{ id: string }>();
@@ -14,6 +15,7 @@ export function EventDetails() {
   const [enrollStatus, setEnrollStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [isAlreadyEnrolled, setIsAlreadyEnrolled] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [showAuthModal, setShowAuthModal] = useState(false);
   
   // Rating states
   const [userAttended, setUserAttended] = useState(false);
@@ -98,8 +100,8 @@ export function EventDetails() {
       const { data: { user } } = await supabase.auth.getUser();
       
       if (!user) {
-        setErrorMessage('Você precisa estar logado para se inscrever.');
-        setEnrollStatus('error');
+        setShowAuthModal(true);
+        setEnrolling(false);
         return;
       }
 
@@ -198,6 +200,15 @@ export function EventDetails() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] dark:bg-slate-950 font-sans pb-24">
+      <AuthModal 
+        isOpen={showAuthModal} 
+        onClose={() => setShowAuthModal(false)} 
+        onSuccess={() => {
+          setShowAuthModal(false);
+          handleEnroll();
+        }} 
+        defaultToRegister={true}
+      />
       {/* Botão de Voltar Flutuante */}
       <button 
         onClick={() => navigate(-1)}

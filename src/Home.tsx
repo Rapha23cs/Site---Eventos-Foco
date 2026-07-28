@@ -1,11 +1,21 @@
 import { Users, Ticket, ArrowRight, ShieldCheck, Sparkles, Smartphone, Play, Zap, Star, Phone, Mail, MapPin } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { AuthModal } from './components/AuthModal';
 
 export function Home() {
   const navigate = useNavigate();
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authModeRegister, setAuthModeRegister] = useState(false);
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] dark:bg-slate-950 text-[#1A1A1A] dark:text-white font-sans selection:bg-[#E31E24] selection:text-white overflow-x-hidden relative">
+      <AuthModal 
+        isOpen={showAuthModal} 
+        onClose={() => setShowAuthModal(false)} 
+        onSuccess={() => navigate('/user')} 
+        defaultToRegister={authModeRegister} 
+      />
 
       {/* Background Mesh Gradients & Video */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-[#F8FAFC] dark:bg-slate-950">
@@ -53,13 +63,19 @@ export function Home() {
 
           <div className="flex items-center gap-3">
             <button
-              onClick={() => navigate('/login')}
+              onClick={() => {
+                setAuthModeRegister(false);
+                setShowAuthModal(true);
+              }}
               className="text-sm font-bold text-gray-600 dark:text-slate-400 hover:text-[#303392] dark:text-blue-400 transition-colors px-4 py-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800/50"
             >
               Entrar
             </button>
             <button
-              onClick={() => navigate('/login')}
+              onClick={() => {
+                setAuthModeRegister(true);
+                setShowAuthModal(true);
+              }}
               className="bg-[#303392] text-white px-6 py-2 rounded-full text-sm font-bold hover:bg-[#1E205A] hover:shadow-[0_4px_12px_rgba(48,51,146,0.3)] transition-all"
             >
               Criar Conta
@@ -94,7 +110,10 @@ export function Home() {
 
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
                 <button
-                  onClick={() => navigate('/login')}
+                  onClick={() => {
+                    setAuthModeRegister(true);
+                    setShowAuthModal(true);
+                  }}
                   className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#E31E24] to-[#B31217] rounded-full text-white font-bold text-lg hover:shadow-[0_8px_24px_rgba(227,30,36,0.4)] hover:-translate-y-1 transition-all flex items-center justify-center gap-3 tracking-wide"
                 >
                   Explorar Eventos
