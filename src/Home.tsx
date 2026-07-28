@@ -240,7 +240,7 @@ export function Home() {
             <div className="bg-gradient-to-br from-[#303392] to-[#1E205A] p-10 rounded-[32px] border border-[#303392] dark:border-blue-500 shadow-xl hover:-translate-y-2 transition-transform group text-white relative overflow-hidden">
               <ShieldCheck className="absolute -right-10 -bottom-10 w-64 h-64 text-white/5 group-hover:text-white/10 transition-colors transform -rotate-12 group-hover:rotate-0 duration-500" />
               <div className="relative z-10 flex flex-col h-full justify-between">
-                <div className="w-14 h-14 bg-white dark:bg-slate-900/10 rounded-2xl flex items-center justify-center mb-6 shadow-lg border border-white/20">
+                <div className="w-14 h-14 bg-white/10 dark:bg-slate-900/10 rounded-2xl flex items-center justify-center mb-6 shadow-lg border border-white/20">
                   <ShieldCheck className="w-7 h-7 text-white" />
                 </div>
                 <div>

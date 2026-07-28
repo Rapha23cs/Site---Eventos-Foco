@@ -412,18 +412,18 @@ export function AdminEventAttendees({ eventId, onBack }: AdminEventAttendeesProp
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-gray-50 dark:bg-slate-800/50/80 border-b border-gray-100 dark:border-slate-800 text-xs uppercase font-extrabold text-gray-500 dark:text-slate-400 tracking-wider">
+                <tr className="bg-gray-50 dark:bg-slate-800/50 border-b border-gray-100 dark:border-slate-800 text-xs uppercase font-extrabold text-gray-500 dark:text-slate-400 tracking-wider">
                   <th className="py-4 px-6">Participante</th>
                   <th className="py-4 px-6">Status da Inscrição</th>
                   <th className="py-4 px-6 text-right">Validação do Ticket (App)</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100 text-sm">
+              <tbody className="divide-y divide-gray-100 dark:divide-slate-800 text-sm">
                 {filteredAttendees.map((attendee) => (
-                  <tr key={attendee.id} className="hover:bg-gray-50 dark:hover:bg-slate-800/50 dark:bg-slate-800/50/50 transition-colors">
+                  <tr key={attendee.id} className="hover:bg-gray-50 dark:hover:bg-slate-800/50 transition-colors">
                     <td className="py-4 px-6">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center font-bold text-[#303392] dark:text-blue-400 uppercase border border-slate-200 dark:border-slate-700">
+                        <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-bold text-[#303392] dark:text-blue-400 uppercase border border-slate-200 dark:border-slate-700">
                           {attendee.profiles?.full_name?.[0] || 'U'}
                         </div>
                         <div>
@@ -437,18 +437,18 @@ export function AdminEventAttendees({ eventId, onBack }: AdminEventAttendeesProp
                       </div>
                     </td>
                     <td className="py-4 px-6">
-                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/50">
                         {attendee.status === 'confirmed' ? 'Confirmado' : attendee.status}
                       </span>
                     </td>
                     <td className="py-4 px-6 flex justify-end">
                       {attendee.attended ? (
-                        <div className="flex items-center gap-2 text-emerald-700 font-bold text-xs bg-emerald-50 border border-emerald-200 px-3.5 py-1.5 rounded-full w-fit">
+                        <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-400 font-bold text-xs bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800/50 px-3.5 py-1.5 rounded-full w-fit">
                           <CheckCircle className="w-4 h-4 text-emerald-600" />
                           Ticket Validado (App)
                         </div>
                       ) : (
-                        <div className="flex items-center gap-2 text-slate-600 font-medium text-xs bg-slate-100 border border-slate-200 dark:border-slate-700 px-3.5 py-1.5 rounded-full w-fit">
+                        <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400 font-medium text-xs bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3.5 py-1.5 rounded-full w-fit">
                           <Clock className="w-4 h-4 text-slate-400" />
                           Aguardando Validação no App
                         </div>

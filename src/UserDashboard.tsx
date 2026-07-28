@@ -208,10 +208,10 @@ export function UserDashboard() {
                   <span className="inline-block px-4 py-1.5 bg-[#E31E24] text-white font-bold text-xs sm:text-sm rounded-full mb-4 sm:mb-6 w-max uppercase tracking-wider">
                     Destaque da Semana
                   </span>
-                  <h2 className="text-3xl sm:text-4xl lg:text-6xl font-extrabold mb-2 sm:mb-4 leading-tight line-clamp-2 text-white shadow-sm">
+                  <h2 className="text-3xl sm:text-4xl lg:text-6xl font-extrabold mb-2 sm:mb-4 leading-tight text-white shadow-sm">
                     {slideEvent.title}
                   </h2>
-                  <p className="text-base sm:text-lg lg:text-xl text-gray-200 mb-6 sm:mb-8 max-w-xl font-medium line-clamp-2">
+                  <p className="text-base sm:text-lg lg:text-xl text-gray-200 mb-6 sm:mb-8 max-w-xl font-medium">
                     {slideEvent.date} • {slideEvent.location}
                   </p>
                   <div className="flex items-center gap-4">

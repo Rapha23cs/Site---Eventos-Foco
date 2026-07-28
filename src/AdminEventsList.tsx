@@ -119,7 +119,7 @@ export function AdminEventsList({ onCreateNew, onEdit, onViewAttendees }: AdminE
                   <th className="p-4 text-right pr-6">Ações</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-gray-100 dark:divide-slate-800">
                 {filteredEvents.length === 0 ? (
                   <tr>
                     <td colSpan={5} className="p-8 text-center text-gray-500 dark:text-slate-400 font-medium">
@@ -171,7 +171,7 @@ export function AdminEventsList({ onCreateNew, onEdit, onViewAttendees }: AdminE
                       <td className="p-4 pr-6 text-right space-x-2">
                         <button 
                           onClick={() => toggleStatus(event.id, event.status || 'ativo')}
-                          className="px-3 py-1.5 bg-gray-100 text-gray-700 dark:text-slate-300 font-bold text-xs rounded-lg hover:bg-gray-200 transition-colors mr-2"
+                          className="px-3 py-1.5 bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-300 font-bold text-xs rounded-lg hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors mr-2"
                         >
                           {event.status === 'encerrado' ? 'Reativar' : 'Encerrar'}
                         </button>

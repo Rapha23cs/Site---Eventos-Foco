@@ -16,6 +16,7 @@ export function AuthModal({ isOpen, onClose, onSuccess, defaultToRegister = fals
   const [isRegistering, setIsRegistering] = useState(defaultToRegister);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
 
   const [fullName, setFullName] = useState('');
   const [company, setCompany] = useState('');
@@ -365,7 +366,22 @@ export function AuthModal({ isOpen, onClose, onSuccess, defaultToRegister = fals
               )}
 
               {!isRegistering && (
-                <div className="flex justify-end pt-2">
+                <div className="flex justify-between items-center pt-2">
+                  <label className="flex items-center gap-2 cursor-pointer group">
+                    <div className="relative flex items-center justify-center">
+                      <input
+                        type="checkbox"
+                        checked={rememberMe}
+                        onChange={(e) => setRememberMe(e.target.checked)}
+                        className="peer sr-only"
+                      />
+                      <div className="w-5 h-5 border-2 border-gray-300 dark:border-slate-600 rounded bg-white dark:bg-slate-900 peer-checked:bg-[#303392] peer-checked:border-[#303392] transition-all"></div>
+                      <svg className="absolute w-3.5 h-3.5 text-white pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <span className="text-sm font-medium text-gray-600 dark:text-slate-400 group-hover:text-gray-800 dark:group-hover:text-slate-200 transition-colors">Manter conectado</span>
+                  </label>
                   <button type="button" onClick={() => { setIsForgotPassword(true); setErrorMsg(''); setSuccessMsg(''); }} className="text-sm font-bold text-[#E31E24] dark:text-red-400 hover:underline transition-colors">
                     Esqueceu a Senha?
                   </button>
