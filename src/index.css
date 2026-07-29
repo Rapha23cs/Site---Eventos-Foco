@@ -8,6 +8,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-[#F5F7FA] dark:bg-slate-950 text-[#1A1A1A] dark:text-slate-50 antialiased;
     font-family: 'Outfit', system-ui, sans-serif;

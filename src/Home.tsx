@@ -1,6 +1,6 @@
 import { Users, Ticket, ArrowRight, ShieldCheck, Sparkles, Smartphone, Play, Zap, Star, Phone, Mail } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AuthModal } from './components/AuthModal';
 import { AppDownloadModal } from './components/AppDownloadModal';
 
@@ -9,6 +9,33 @@ export function Home() {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authModeRegister, setAuthModeRegister] = useState(false);
   const [showAppModal, setShowAppModal] = useState(false);
+  const [activeSection, setActiveSection] = useState('inicio');
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['inicio', 'recursos', 'quem-somos'];
+      let current = '';
+      
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 250 && rect.bottom >= 250) {
+            current = section;
+          }
+        }
+      }
+      
+      if (current && current !== activeSection) {
+        setActiveSection(current);
+      } else if (window.scrollY < 100) {
+        setActiveSection('inicio');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [activeSection]);
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] dark:bg-slate-950 text-[#1A1A1A] dark:text-white font-sans selection:bg-[#E31E24] selection:text-white overflow-x-hidden relative">
@@ -47,8 +74,8 @@ export function Home() {
         <div className="absolute bottom-[-10%] left-[20%] w-[40%] h-[40%] bg-purple-500/10 rounded-full blur-[120px] mix-blend-multiply animate-pulse" style={{ animationDuration: '10s' }}></div>
 
         {/* Logo Overlay Suave */}
-        <div className="absolute inset-0 flex items-center justify-start pl-8 md:pl-20 lg:pl-32 opacity-[0.03]">
-          <img src="/logo1.png" alt="" className="w-full max-w-[500px] md:max-w-[600px] lg:max-w-[900px] object-contain mix-blend-multiply" />
+        <div className="absolute inset-0 flex items-center justify-start pl-8 md:pl-20 lg:pl-32 opacity-[0.03] dark:opacity-20">
+          <img src="/logo1.png" alt="" className="w-full max-w-[500px] md:max-w-[600px] lg:max-w-[900px] object-contain mix-blend-multiply dark:mix-blend-normal dark:grayscale dark:contrast-200" />
         </div>
       </div>
 
@@ -66,9 +93,10 @@ export function Home() {
           </div>
 
           <div className="hidden md:flex items-center gap-8 text-sm font-bold text-gray-500 dark:text-slate-400">
-            <a href="#eventos" className="hover:text-[#303392] dark:text-blue-400 transition-colors">Eventos</a>
-            <a href="#comunidade" className="hover:text-[#303392] dark:text-blue-400 transition-colors">Comunidade</a>
-            <button onClick={() => setShowAppModal(true)} className="hover:text-[#303392] dark:text-blue-400 transition-colors">App</button>
+            <a href="#inicio" className={`transition-colors ${activeSection === 'inicio' ? 'text-[#303392] dark:text-blue-400' : 'hover:text-[#303392] dark:hover:text-blue-400'}`}>Início</a>
+            <a href="#recursos" className={`transition-colors ${activeSection === 'recursos' ? 'text-[#303392] dark:text-blue-400' : 'hover:text-[#303392] dark:hover:text-blue-400'}`}>Recursos</a>
+            <a href="#quem-somos" className={`transition-colors ${activeSection === 'quem-somos' ? 'text-[#303392] dark:text-blue-400' : 'hover:text-[#303392] dark:hover:text-blue-400'}`}>Quem somos</a>
+            <button onClick={() => setShowAppModal(true)} className="hover:text-[#303392] dark:hover:text-blue-400 transition-colors">App</button>
           </div>
 
           <div className="flex items-center gap-3">
@@ -95,7 +123,7 @@ export function Home() {
       </nav>
 
       {/* Hero Section Split Layout */}
-      <section className="relative pt-40 pb-20 lg:pt-48 lg:pb-32 z-10">
+      <section id="inicio" className="relative pt-40 pb-20 lg:pt-48 lg:pb-32 z-10">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col lg:flex-row items-center gap-16">
 
@@ -186,7 +214,7 @@ export function Home() {
       </section>
 
       {/* Bento Grid Features Section */}
-      <section className="py-24 relative z-10 bg-white dark:bg-slate-900/50 border-t border-white/60">
+      <section id="recursos" className="py-24 relative z-10 bg-white dark:bg-slate-900/50 border-t border-white/60">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-extrabold text-[#303392] dark:text-blue-400 tracking-tight mb-4">
@@ -314,6 +342,69 @@ export function Home() {
         </div>
       </section>
 
+      {/* Quem Somos Section */}
+      <section id="quem-somos" className="relative py-20 lg:py-32 bg-gray-50 dark:bg-slate-900/50 border-t border-gray-200 dark:border-slate-800 z-10 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+            
+            {/* Texto */}
+            <div className="lg:w-1/2 flex flex-col items-start gap-8">
+              <span className="inline-block px-4 py-1.5 bg-[#E31E24]/10 dark:bg-red-500/20 text-[#E31E24] dark:text-red-400 font-extrabold text-xs rounded-full tracking-wider uppercase">
+                Quem Somos
+              </span>
+              
+              <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight tracking-tight">
+                Inovação e Tecnologia<br/>
+                <span className="text-[#303392] dark:text-blue-400">para o seu evento.</span>
+              </h2>
+
+              <div className="space-y-6 text-gray-600 dark:text-slate-400 font-medium leading-relaxed text-lg">
+                <p>
+                  Desde 1999, a <strong className="text-gray-900 dark:text-white">Foco Consultancy Group</strong> conecta pessoas a experiências inesquecíveis por meio de soluções tecnológicas para a gestão de eventos.
+                </p>
+                <p>
+                  Em um mercado competitivo, oferecemos aos produtores uma plataforma ágil, segura e inovadora. Nosso objetivo é garantir a melhor jornada de compra para o público e rentabilidade para o seu negócio, contando com uma infraestrutura de alta performance que ajuda a esgotar seus lotes rapidamente.
+                </p>
+                <p className="text-gray-900 dark:text-white font-bold pt-4">
+                  Somos um sistema inteligente focado em três pilares essenciais para o sucesso da sua produção:
+                </p>
+                <ul className="space-y-5 mt-4">
+                  <li className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-2xl bg-[#303392]/10 dark:bg-blue-900/30 flex items-center justify-center text-[#303392] dark:text-blue-400 shrink-0 shadow-sm border border-[#303392]/5 dark:border-blue-900/50">
+                      <Ticket className="w-5 h-5" />
+                    </div>
+                    <span className="font-extrabold text-gray-800 dark:text-slate-200">Venda de Ingressos Online</span>
+                  </li>
+                  <li className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-2xl bg-[#303392]/10 dark:bg-blue-900/30 flex items-center justify-center text-[#303392] dark:text-blue-400 shrink-0 shadow-sm border border-[#303392]/5 dark:border-blue-900/50">
+                      <ShieldCheck className="w-5 h-5" />
+                    </div>
+                    <span className="font-extrabold text-gray-800 dark:text-slate-200">Controle de Acesso e Validação</span>
+                  </li>
+                  <li className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-2xl bg-[#303392]/10 dark:bg-blue-900/30 flex items-center justify-center text-[#303392] dark:text-blue-400 shrink-0 shadow-sm border border-[#303392]/5 dark:border-blue-900/50">
+                      <Zap className="w-5 h-5" />
+                    </div>
+                    <span className="font-extrabold text-gray-800 dark:text-slate-200">Análise de Dados e Inteligência de Mercado</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Imagens / Logos */}
+            <div className="lg:w-1/2 w-full mt-10 lg:mt-0 relative">
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#303392] to-[#E31E24] rounded-[3rem] blur-[80px] opacity-10 dark:opacity-20 transform -rotate-6 scale-105"></div>
+              <div className="relative bg-white p-10 md:p-16 rounded-[3rem] shadow-2xl flex flex-col items-center justify-center gap-14 group hover:-translate-y-2 transition-all duration-500">
+                <img src="/logo1.png" alt="Foco Consultancy Group" className="w-full max-w-[320px] object-contain drop-shadow-sm group-hover:scale-105 transition-transform duration-500" />
+                <div className="w-24 h-1.5 bg-gradient-to-r from-transparent via-gray-200 dark:via-slate-700 to-transparent rounded-full opacity-50"></div>
+                <img src="/logo.jpg" alt="FOCO Eventos" className="w-40 h-40 object-contain rounded-full shadow-[0_16px_40px_rgb(0,0,0,0.15)] border-4 border-white dark:border-slate-700 group-hover:rotate-[360deg] transition-transform duration-1000 ease-in-out" />
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="border-t border-gray-200 dark:border-slate-800 bg-white dark:bg-slate-900 z-10 relative">
         <div className="max-w-7xl mx-auto px-6 py-16">
@@ -354,9 +445,10 @@ export function Home() {
             <div className="md:col-span-2 lg:col-span-2">
               <h4 className="text-gray-900 dark:text-white font-bold text-lg mb-6">Plataforma</h4>
               <div className="flex flex-col gap-4">
-                <a href="#eventos" className="text-gray-500 dark:text-slate-400 hover:text-[#303392] dark:hover:text-blue-400 font-medium transition-colors text-sm">Explorar Eventos</a>
+                <a href="#inicio" className="text-gray-500 dark:text-slate-400 hover:text-[#303392] dark:hover:text-blue-400 font-medium transition-colors text-sm">Início</a>
+                <a href="#recursos" className="text-gray-500 dark:text-slate-400 hover:text-[#303392] dark:hover:text-blue-400 font-medium transition-colors text-sm">Recursos</a>
                 <button onClick={() => setShowAppModal(true)} className="text-gray-500 dark:text-slate-400 hover:text-[#303392] dark:hover:text-blue-400 font-medium transition-colors text-sm text-left w-fit">Aplicativo</button>
-                <a href="#comunidade" className="text-gray-500 dark:text-slate-400 hover:text-[#303392] dark:hover:text-blue-400 font-medium transition-colors text-sm">Comunidade</a>
+                <a href="#quem-somos" className="text-gray-500 dark:text-slate-400 hover:text-[#303392] dark:hover:text-blue-400 font-medium transition-colors text-sm">Quem somos</a>
               </div>
             </div>
 

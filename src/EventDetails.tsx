@@ -463,7 +463,7 @@ export function EventDetails() {
                   <p className="font-extrabold text-lg text-emerald-950">INSCRITO NO EVENTO</p>
                   <p className="text-sm mt-1 font-medium text-emerald-600">Sua vaga está garantida neste evento.</p>
                   <button 
-                    onClick={() => navigate(-1)}
+                    onClick={() => navigate('/user', { state: { view: 'tickets' } })}
                     className="mt-6 w-full py-3 bg-emerald-600 text-white rounded-xl font-bold hover:bg-emerald-700 transition-colors shadow-sm"
                   >
                     Voltar para Meus Ingressos

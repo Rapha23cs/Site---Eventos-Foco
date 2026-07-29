@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Search, MapPin, Calendar, Heart, LogOut, ArrowRight, Filter, ChevronDown, Loader2, Settings, MessageSquare, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from './lib/supabase';
 import { UserTickets } from './UserTickets';
 import { UserSettings } from './UserSettings';
@@ -20,7 +20,10 @@ interface Event {
 
 export function UserDashboard() {
   const navigate = useNavigate();
-  const [userView, setUserView] = useState<'explore' | 'tickets' | 'settings' | 'favorites' | 'community'>('explore');
+  const location = useLocation();
+  const [userView, setUserView] = useState<'explore' | 'tickets' | 'settings' | 'favorites' | 'community'>(
+    (location.state as any)?.view || 'explore'
+  );
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [userProfile, setUserProfile] = useState<any>(null);
