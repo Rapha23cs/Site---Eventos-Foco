@@ -1,11 +1,13 @@
-import { Users, Ticket, ArrowRight, ShieldCheck, Sparkles, Smartphone, Play, Zap, Star, Phone, Mail } from 'lucide-react';
+import { Users, Ticket, ArrowRight, ShieldCheck, Sparkles, Smartphone, Play, Zap, Star, Phone, Mail, Moon, Sun } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { AuthModal } from './components/AuthModal';
 import { AppDownloadModal } from './components/AppDownloadModal';
+import { useTheme } from './components/ThemeProvider';
 
 export function Home() {
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authModeRegister, setAuthModeRegister] = useState(false);
   const [showAppModal, setShowAppModal] = useState(false);
@@ -99,7 +101,14 @@ export function Home() {
             <button onClick={() => setShowAppModal(true)} className="hover:text-[#303392] dark:hover:text-blue-400 transition-colors">App</button>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <button
+              onClick={toggleTheme}
+              className="p-2 text-gray-500 dark:text-slate-400 hover:text-[#303392] dark:hover:text-blue-400 bg-gray-100 dark:bg-slate-800 rounded-full transition-colors hidden sm:block"
+              title="Alternar Tema"
+            >
+              {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </button>
             <button
               onClick={() => {
                 setAuthModeRegister(false);
