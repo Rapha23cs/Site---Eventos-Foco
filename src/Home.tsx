@@ -190,7 +190,9 @@ export function Home() {
                 {/* Floating Elements mimicking App UI */}
                 <div className="absolute top-10 left-10 w-64 bg-white dark:bg-slate-900/90 backdrop-blur-xl p-5 rounded-3xl shadow-[0_20px_40px_rgba(0,0,0,0.08)] transform -rotate-6 group-hover:rotate-0 transition-transform duration-700 border border-transparent dark:border-slate-800">
                   <div className="flex gap-4 items-center mb-4">
-                    <div className="w-12 h-12 bg-gray-100 dark:bg-slate-800 rounded-2xl"></div>
+                    <div className="w-12 h-12 bg-white rounded-2xl overflow-hidden shadow-sm flex items-center justify-center border border-gray-100 dark:border-slate-700 p-1">
+                      <img src="/logo.jpg" alt="Logo" className="w-full h-full object-contain rounded-xl" />
+                    </div>
                     <div>
                       <div className="w-24 h-4 bg-gray-200 dark:bg-slate-700 rounded-full mb-2"></div>
                       <div className="w-16 h-3 bg-gray-100 dark:bg-slate-800 rounded-full"></div>
@@ -208,8 +210,8 @@ export function Home() {
                     <div className="w-20 h-4 bg-emerald-100 dark:bg-emerald-500/20 rounded-full"></div>
                     <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
                   </div>
-                  <div className="w-full h-24 bg-[#303392]/5 dark:bg-blue-900/20 rounded-2xl mb-4 flex items-center justify-center">
-                    <Ticket className="w-8 h-8 text-[#303392] dark:text-blue-400/30" />
+                  <div className="w-full h-24 bg-[#303392]/5 dark:bg-blue-900/20 rounded-2xl mb-4 flex items-center justify-center p-4">
+                    <img src="/logo1.png" alt="Foco Eventos" className="max-w-full max-h-full object-contain opacity-80 mix-blend-multiply dark:mix-blend-normal dark:brightness-0 dark:invert dark:opacity-100" />
                   </div>
                   <div className="w-3/4 h-3 bg-gray-200 dark:bg-slate-700 rounded-full"></div>
                 </div>
